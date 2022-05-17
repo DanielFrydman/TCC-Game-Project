@@ -1,6 +1,7 @@
-Music in the template is by Mr Smith, and licensed under Creative Commons
-Attribution 4.0 International (CC BY 4.0).
+Music in the template is by Zane Little Music, and licensed under Creative Commons
+CC0 1.0 Universal (CC0 1.0)
+Public Domain Dedication
 
-https://freemusicarchive.org/music/mr-smith
+https://opengameart.org/content/it-takes-a-hero
 
-Mr Smith's music is used in this template project with his explicit permission.
+Zane Little Music musics are used in this template project with his explicit permission.

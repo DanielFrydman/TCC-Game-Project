@@ -229,9 +229,9 @@ You can find some music
 tracks in `assets/music` — these are Creative Commons Attribution (CC-BY)
 licensed, and are included in this repository with permission. If you decide
 to keep these tracks in your game, please don't forget to give credit
-to the musician, [Mr Smith][].
+to the musician, [Zane Little Music][].
 
-[Mr Smith]: https://freemusicarchive.org/music/mr-smith
+[Zane Little Music]: https://opengameart.org/users/zane-little-music
 
 The repository also includes a few sound effect samples in `assets/sfx`.
 These are public domain (CC0) and you will almost surely want to replace

@@ -31,7 +31,7 @@ class MainMenuScreen extends StatelessWidget {
           child: Transform.rotate(
             angle: -0.1,
             child: const Text(
-              'Flutter Game Template!',
+              'Aprendendo Segurança da Informação!',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Permanent Marker',
@@ -49,7 +49,7 @@ class MainMenuScreen extends StatelessWidget {
                 audioController.playSfx(SfxType.buttonTap);
                 GoRouter.of(context).go('/play');
               },
-              child: const Text('Play'),
+              child: const Text('Jogar'),
             ),
             _gap,
             if (gamesServicesController != null) ...[
@@ -72,7 +72,7 @@ class MainMenuScreen extends StatelessWidget {
             ],
             ElevatedButton(
               onPressed: () => GoRouter.of(context).go('/settings'),
-              child: const Text('Settings'),
+              child: const Text('Configurações'),
             ),
             _gap,
             Padding(
@@ -88,7 +88,7 @@ class MainMenuScreen extends StatelessWidget {
               ),
             ),
             _gap,
-            const Text('Music by Mr Smith'),
+            const Text('Música por Zane Little Music'),
             _gap,
           ],
         ),
