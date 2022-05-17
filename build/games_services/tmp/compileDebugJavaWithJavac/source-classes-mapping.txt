@@ -1,0 +1,2 @@
+com/abedalkareem/games_services/BuildConfig.java
+ com.abedalkareem.games_services.BuildConfig
