@@ -46,15 +46,15 @@ class WinGameScreen extends StatelessWidget {
             gap,
             const Center(
               child: Text(
-                'You won!',
+                'Você ganhou!',
                 style: TextStyle(fontFamily: 'Permanent Marker', fontSize: 50),
               ),
             ),
             gap,
             Center(
               child: Text(
-                'Score: ${score.score}\n'
-                'Time: ${score.formattedTime}',
+                'Pontuação: ${score.score}\n'
+                'Tempo: ${score.formattedTime}',
                 style: const TextStyle(
                     fontFamily: 'Permanent Marker', fontSize: 20),
               ),
@@ -65,7 +65,7 @@ class WinGameScreen extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          child: const Text('Continue'),
+          child: const Text('Continuar'),
         ),
       ),
     );
