@@ -152,7 +152,7 @@ class InAppPurchaseController extends ChangeNotifier {
           } else {
             _log.severe('Purchase verification failed: $purchaseDetails');
             _adRemoval = AdRemovalPurchase.error(
-                StateError('A compra não pode ser verificada :('));
+                StateError('A compra não pôde ser verificada :('));
             notifyListeners();
           }
           break;
