@@ -76,11 +76,11 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                       ),
                     ),
                     const Spacer(),
-                    Text('Drag the slider to ${widget.level.difficulty}%'
-                        ' or above!'),
+                    Text('Arraste o controle para ${widget.level.difficulty}%'
+                        ' ou mais!'),
                     Consumer<LevelState>(
                       builder: (context, levelState, child) => Slider(
-                        label: 'Level Progress',
+                        label: 'Progresso do Nível',
                         autofocus: true,
                         value: levelState.progress / 100,
                         onChanged: (value) =>
@@ -95,7 +95,7 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () => GoRouter.of(context).pop(),
-                          child: const Text('Back'),
+                          child: const Text('Voltar'),
                         ),
                       ),
                     ),

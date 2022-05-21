@@ -146,13 +146,13 @@ class InAppPurchaseController extends ChangeNotifier {
           if (valid) {
             _adRemoval = const AdRemovalPurchase.active();
             if (purchaseDetails.status == PurchaseStatus.purchased) {
-              showSnackBar('Thank you for your support!');
+              showSnackBar('Obrigado pelo seu apoio! ;D');
             }
             notifyListeners();
           } else {
             _log.severe('Purchase verification failed: $purchaseDetails');
             _adRemoval = AdRemovalPurchase.error(
-                StateError('Purchase could not be verified'));
+                StateError('A compra não pôde ser verificada :('));
             notifyListeners();
           }
           break;

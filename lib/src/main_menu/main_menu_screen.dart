@@ -57,7 +57,7 @@ class MainMenuScreen extends StatelessWidget {
                 ready: gamesServicesController.signedIn,
                 child: ElevatedButton(
                   onPressed: () => gamesServicesController.showAchievements(),
-                  child: const Text('Achievements'),
+                  child: const Text('Conquistas'),
                 ),
               ),
               _gap,

@@ -44,5 +44,5 @@ class Score {
   }
 
   @override
-  String toString() => 'Score<$score,$formattedTime,$level>';
+  String toString() => 'Pontuação<$score,$formattedTime,$level>';
 }

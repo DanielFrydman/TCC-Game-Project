@@ -30,22 +30,22 @@ class SettingsScreen extends StatelessWidget {
           children: [
             _gap,
             const Text(
-              'Settings',
+              'Configurações',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Permanent Marker',
-                fontSize: 55,
+                fontSize: 50,
                 height: 1,
               ),
             ),
             _gap,
             const _NameChangeLine(
-              'Name',
+              'Nome',
             ),
             ValueListenableBuilder<bool>(
               valueListenable: settings.soundsOn,
               builder: (context, soundsOn, child) => _SettingsLine(
-                'Sound FX',
+                'Efeitos Sonoros',
                 Icon(soundsOn ? Icons.graphic_eq : Icons.volume_off),
                 onSelected: () => settings.toggleSoundsOn(),
               ),
@@ -53,7 +53,7 @@ class SettingsScreen extends StatelessWidget {
             ValueListenableBuilder<bool>(
               valueListenable: settings.musicOn,
               builder: (context, musicOn, child) => _SettingsLine(
-                'Music',
+                'Música',
                 Icon(musicOn ? Icons.music_note : Icons.music_off),
                 onSelected: () => settings.toggleMusicOn(),
               ),
@@ -80,13 +80,13 @@ class SettingsScreen extends StatelessWidget {
                 };
               }
               return _SettingsLine(
-                'Remove ads',
+                'Remover Ads',
                 icon,
                 onSelected: callback,
               );
             }),
             _SettingsLine(
-              'Reset progress',
+              'Redefinir progresso',
               const Icon(Icons.delete),
               onSelected: () {
                 context.read<PlayerProgress>().reset();
@@ -94,7 +94,7 @@ class SettingsScreen extends StatelessWidget {
                 final messenger = ScaffoldMessenger.of(context);
                 messenger.showSnackBar(
                   const SnackBar(
-                      content: Text('Player progress has been reset.')),
+                      content: Text('O progresso do jogador foi redefinido.')),
                 );
               },
             ),
@@ -105,7 +105,7 @@ class SettingsScreen extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          child: const Text('Back'),
+          child: const Text('Voltar'),
         ),
       ),
     );

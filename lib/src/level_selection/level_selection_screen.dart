@@ -30,7 +30,7 @@ class LevelSelectionScreen extends StatelessWidget {
               padding: EdgeInsets.all(16),
               child: Center(
                 child: Text(
-                  'Select level',
+                  'Selecione o nível',
                   style:
                       TextStyle(fontFamily: 'Permanent Marker', fontSize: 30),
                 ),
@@ -52,7 +52,7 @@ class LevelSelectionScreen extends StatelessWidget {
                             .go('/play/session/${level.number}');
                       },
                       leading: Text(level.number.toString()),
-                      title: Text('Level #${level.number}'),
+                      title: Text('Nível #${level.number}'),
                     )
                 ],
               ),
@@ -63,7 +63,7 @@ class LevelSelectionScreen extends StatelessWidget {
           onPressed: () {
             GoRouter.of(context).pop();
           },
-          child: const Text('Back'),
+          child: const Text('Voltar'),
         ),
       ),
     );
