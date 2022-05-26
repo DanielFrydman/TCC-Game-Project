@@ -20,6 +20,7 @@ dependencies:
   provider: ^6.0.2
   shared_preferences: ^2.0.13
 
+  google_fonts: ^3.0.1
   # If you don't need one of the following dependencies,
   # delete the relevant line below, and get rid of any Dart code
   # that references the dependency.
@@ -44,6 +45,8 @@ flutter:
     - assets/images/
     - assets/music/
     - assets/sfx/
+    - assets/images/main_menu_backgrounds/
+    - assets/images/buttons/
 
   fonts:
     - family: Permanent Marker

@@ -10,86 +10,124 @@ import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 import '../games_services/games_services.dart';
 import '../settings/settings.dart';
-import '../style/palette.dart';
-import '../style/responsive_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainMenuScreen extends StatelessWidget {
   const MainMenuScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<Palette>();
     final gamesServicesController = context.watch<GamesServicesController?>();
     final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
 
     return Scaffold(
-      backgroundColor: palette.backgroundMain,
-      body: ResponsiveScreen(
-        mainAreaProminence: 0.45,
-        squarishMainArea: Center(
-          child: Transform.rotate(
-            angle: -0.1,
-            child: const Text(
-              'Aprendendo Segurança da Informação!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Permanent Marker',
-                fontSize: 55,
-                height: 1,
-              ),
-            ),
-          ),
-        ),
-        rectangularMenuArea: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(backgrounds[getBackgroundForDayTime()]),
+                fit: BoxFit.cover)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            ElevatedButton(
-              onPressed: () {
-                audioController.playSfx(SfxType.buttonTap);
-                GoRouter.of(context).go('/play');
-              },
-              child: const Text('Jogar'),
-            ),
-            _gap,
-            if (gamesServicesController != null) ...[
-              _hideUntilReady(
-                ready: gamesServicesController.signedIn,
-                child: ElevatedButton(
-                  onPressed: () => gamesServicesController.showAchievements(),
-                  child: const Text('Conquistas'),
+            Center(
+              child: Transform.rotate(
+                angle: -0.1,
+                child: Text(
+                  'Aprendendo Segurança da Informação!',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.vt323(
+                    textStyle: TextStyle(
+                        fontSize: 60,
+                        height: 1,
+                        fontWeight: FontWeight.w600,
+                        shadows: <Shadow>[
+                          Shadow(
+                              color: Colors.white,
+                              offset: Offset(0, 0),
+                              blurRadius: 30)
+                        ]),
+                  ),
                 ),
               ),
-              _gap,
-              _hideUntilReady(
-                ready: gamesServicesController.signedIn,
-                child: ElevatedButton(
-                  onPressed: () => gamesServicesController.showLeaderboard(),
-                  child: const Text('Leaderboard'),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {
+                    audioController.playSfx(SfxType.buttonTap);
+                    GoRouter.of(context).go('/play');
+                  },
+                  child: Text('Jogar',
+                      style: GoogleFonts.vt323(
+                        textStyle: TextStyle(
+                            fontSize: 30,
+                            height: 1,
+                            fontWeight: FontWeight.w500),
+                      )),
                 ),
-              ),
-              _gap,
-            ],
-            ElevatedButton(
-              onPressed: () => GoRouter.of(context).go('/settings'),
-              child: const Text('Configurações'),
+                if (gamesServicesController != null) ...[
+                  _hideUntilReady(
+                    ready: gamesServicesController.signedIn,
+                    child: ElevatedButton(
+                      onPressed: () =>
+                          gamesServicesController.showAchievements(),
+                      child: Text('Conquistas',
+                          style: GoogleFonts.vt323(
+                              textStyle: TextStyle(
+                                  fontSize: 30,
+                                  height: 1,
+                                  fontWeight: FontWeight.w500))),
+                    ),
+                  ),
+                  _hideUntilReady(
+                    ready: gamesServicesController.signedIn,
+                    child: ElevatedButton(
+                      onPressed: () =>
+                          gamesServicesController.showLeaderboard(),
+                      child: Text('Placar de Líderes',
+                          style: GoogleFonts.vt323(
+                              textStyle: TextStyle(
+                                  fontSize: 30,
+                                  height: 1,
+                                  fontWeight: FontWeight.w500))),
+                    ),
+                  ),
+                ],
+                ElevatedButton(
+                    onPressed: () => GoRouter.of(context).go('/settings'),
+                    child: Text(
+                      'Configurações',
+                      style: GoogleFonts.vt323(
+                          textStyle: TextStyle(
+                              fontSize: 30,
+                              height: 1,
+                              fontWeight: FontWeight.w500)),
+                    )),
+              ],
             ),
-            _gap,
-            Padding(
-              padding: const EdgeInsets.only(top: 32),
-              child: ValueListenableBuilder<bool>(
-                valueListenable: settingsController.muted,
-                builder: (context, muted, child) {
-                  return IconButton(
-                    onPressed: () => settingsController.toggleMuted(),
-                    icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
-                  );
-                },
-              ),
-            ),
-            _gap,
-            const Text('Música por Zane Little Music'),
-            _gap,
+            // Column(
+            //   children: [
+            //     ValueListenableBuilder<bool>(
+            //       valueListenable: settingsController.muted,
+            //       builder: (context, muted, child) {
+            //         return IconButton(
+            //           onPressed: () => settingsController.toggleMuted(),
+            //           icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
+            //         );
+            //       },
+            //     ),
+            //     Text(
+            //       'Música por Zane Little Music',
+            //      style: GoogleFonts.vt323(
+            //               textStyle: TextStyle(
+            //                   fontSize: 25,
+            //                   height: 1,
+            //                   fontWeight: FontWeight.w500))
+            //     )
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -118,6 +156,24 @@ class MainMenuScreen extends StatelessWidget {
       },
     );
   }
-
-  static const _gap = SizedBox(height: 10);
 }
+
+int getBackgroundForDayTime() {
+  DateTime dateTime = DateTime.now();
+  if (dateTime.hour >= 3 && dateTime.hour < 6) {
+    return 0;
+  } else if (dateTime.hour >= 6 && dateTime.hour < 18) {
+    return 1;
+  } else if (dateTime.hour >= 18 && dateTime.hour < 24) {
+    return 2;
+  } else {
+    return 3;
+  }
+}
+
+const backgrounds = [
+  'assets/images/main_menu_backgrounds/morning_dawn.png',
+  'assets/images/main_menu_backgrounds/morning.png',
+  'assets/images/main_menu_backgrounds/night.png',
+  'assets/images/main_menu_backgrounds/night_dawn.png'
+];

@@ -75,6 +75,13 @@ void guardedMain() {
     SystemUiMode.edgeToEdge,
   );
 
+  final style = SystemUiOverlayStyle(
+    systemNavigationBarColor: Colors.transparent,
+    systemNavigationBarDividerColor: Colors.transparent
+  );
+
+  SystemChrome.setSystemUIOverlayStyle(style);
+
   // TODO: When ready, uncomment the following lines to enable integrations.
   //       Read the README for more info on each integration.
 
@@ -104,15 +111,17 @@ void guardedMain() {
   //   inAppPurchaseController.restorePurchases();
   // }
 
-  runApp(
-    MyApp(
-      settingsPersistence: LocalStorageSettingsPersistence(),
-      playerProgressPersistence: LocalStoragePlayerProgressPersistence(),
-      inAppPurchaseController: inAppPurchaseController,
-      adsController: adsController,
-      gamesServicesController: gamesServicesController,
-    ),
-  );
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
+      .then((value) => runApp(
+            MyApp(
+              settingsPersistence: LocalStorageSettingsPersistence(),
+              playerProgressPersistence:
+                  LocalStoragePlayerProgressPersistence(),
+              inAppPurchaseController: inAppPurchaseController,
+              adsController: adsController,
+              gamesServicesController: gamesServicesController,
+            ),
+          ));
 }
 
 Logger _log = Logger('main.dart');

@@ -14,7 +14,7 @@ class ResponsiveScreen extends StatelessWidget {
 
   /// The second-largest area after [squarishMainArea]. It can be narrow
   /// or wide.
-  final Widget rectangularMenuArea;
+  // final Widget rectangularMenuArea;
 
   /// An area reserved for some static text close to the top of the screen.
   final Widget topMessageArea;
@@ -25,7 +25,7 @@ class ResponsiveScreen extends StatelessWidget {
 
   const ResponsiveScreen({
     required this.squarishMainArea,
-    required this.rectangularMenuArea,
+    // required this.rectangularMenuArea,
     this.topMessageArea = const SizedBox.shrink(),
     this.mainAreaProminence = 0.8,
     super.key,
@@ -51,30 +51,13 @@ class ResponsiveScreen extends StatelessWidget {
                   child: topMessageArea,
                 ),
               ),
-              Expanded(
-                flex: (mainAreaProminence * 100).round(),
-                child: SafeArea(
-                  top: false,
-                  bottom: false,
-                  minimum: padding,
-                  child: squarishMainArea,
-                ),
-              ),
-              SafeArea(
-                top: false,
-                maintainBottomViewPadding: true,
-                child: Padding(
-                  padding: padding,
-                  child: rectangularMenuArea,
-                ),
-              ),
             ],
           );
         } else {
           // "Landscape" / "tablet" mode.
           final isLarge = size.width > 900;
 
-          return Row(
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
@@ -84,36 +67,6 @@ class ResponsiveScreen extends StatelessWidget {
                   maintainBottomViewPadding: true,
                   minimum: padding,
                   child: squarishMainArea,
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: [
-                    SafeArea(
-                      bottom: false,
-                      left: false,
-                      maintainBottomViewPadding: true,
-                      child: Padding(
-                        padding: padding,
-                        child: topMessageArea,
-                      ),
-                    ),
-                    Expanded(
-                      child: SafeArea(
-                        top: false,
-                        left: false,
-                        maintainBottomViewPadding: true,
-                        child: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: padding,
-                            child: rectangularMenuArea,
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
                 ),
               ),
             ],

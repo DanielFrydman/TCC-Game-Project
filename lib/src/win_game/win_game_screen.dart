@@ -59,13 +59,13 @@ class WinGameScreen extends StatelessWidget {
                     fontFamily: 'Permanent Marker', fontSize: 20),
               ),
             ),
-          ],
-        ),
-        rectangularMenuArea: ElevatedButton(
+            ElevatedButton(
           onPressed: () {
             GoRouter.of(context).pop();
           },
           child: const Text('Continuar'),
+        ),
+          ],
         ),
       ),
     );

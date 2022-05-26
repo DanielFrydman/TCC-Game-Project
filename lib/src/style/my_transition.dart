@@ -82,21 +82,9 @@ class _MyRevealState extends State<_MyReveal> {
     return Stack(
       fit: StackFit.expand,
       children: [
-        SlideTransition(
-          position: _tween.animate(
-            CurvedAnimation(
-              parent: widget.animation,
-              curve: Curves.easeOutCubic,
-              reverseCurve: Curves.easeOutCubic,
-            ),
-          ),
-          child: Container(
-            color: widget.color,
-          ),
-        ),
         AnimatedOpacity(
           opacity: _finished ? 1 : 0,
-          duration: const Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 50),
           child: widget.child,
         ),
       ],
