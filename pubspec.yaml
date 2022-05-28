@@ -37,6 +37,7 @@ dev_dependencies:
   flutter_launcher_icons: ^0.9.2
   flutter_lints: ^2.0.1
   test: ^1.19.0
+  bonfire: ^2.4.4
 
 flutter:
   uses-material-design: true
@@ -47,6 +48,11 @@ flutter:
     - assets/sfx/
     - assets/images/main_menu_backgrounds/
     - assets/images/buttons/
+    - assets/images/characters/
+    - assets/images/map/introduction/
+    - assets/images/map/generic_stuff/
+    - assets/images/map/introduction/reception/
+    - assets/images/map/introduction/auditorium/
 
   fonts:
     - family: Permanent Marker

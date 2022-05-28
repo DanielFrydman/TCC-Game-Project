@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import '../audio/audio_controller.dart';
 import '../audio/sounds.dart';
 import '../games_services/games_services.dart';
-import '../settings/settings.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainMenuScreen extends StatelessWidget {
@@ -18,7 +17,6 @@ class MainMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gamesServicesController = context.watch<GamesServicesController?>();
-    final settingsController = context.watch<SettingsController>();
     final audioController = context.watch<AudioController>();
 
     return Scaffold(
@@ -107,27 +105,6 @@ class MainMenuScreen extends StatelessWidget {
                     )),
               ],
             ),
-            // Column(
-            //   children: [
-            //     ValueListenableBuilder<bool>(
-            //       valueListenable: settingsController.muted,
-            //       builder: (context, muted, child) {
-            //         return IconButton(
-            //           onPressed: () => settingsController.toggleMuted(),
-            //           icon: Icon(muted ? Icons.volume_off : Icons.volume_up),
-            //         );
-            //       },
-            //     ),
-            //     Text(
-            //       'Música por Zane Little Music',
-            //      style: GoogleFonts.vt323(
-            //               textStyle: TextStyle(
-            //                   fontSize: 25,
-            //                   height: 1,
-            //                   fontWeight: FontWeight.w500))
-            //     )
-            //   ],
-            // ),
           ],
         ),
       ),

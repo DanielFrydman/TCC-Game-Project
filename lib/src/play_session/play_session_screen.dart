@@ -5,9 +5,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:game_template/src/game/game.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart' hide Level;
 import 'package:provider/provider.dart';
+import 'package:game_template/src/level_selection/levels.dart';
 
 import '../ads/ads_controller.dart';
 import '../audio/audio_controller.dart';
@@ -27,7 +29,7 @@ class PlaySessionScreen extends StatefulWidget {
   const PlaySessionScreen(this.level, {super.key});
 
   @override
-  State<PlaySessionScreen> createState() => _PlaySessionScreenState();
+  State<PlaySessionScreen> createState() => _PlaySessionScreenState(this.level);
 }
 
 class _PlaySessionScreenState extends State<PlaySessionScreen> {
@@ -41,82 +43,16 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
 
   late DateTime _startOfPlay;
 
+  final GameLevel level;
+  _PlaySessionScreenState(this.level);
+
   @override
   Widget build(BuildContext context) {
-    final palette = context.watch<Palette>();
-
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => LevelState(
-            goal: widget.level.difficulty,
-            onWin: _playerWon,
-          ),
-        ),
-      ],
-      child: IgnorePointer(
-        ignoring: _duringCelebration,
-        child: Scaffold(
-          backgroundColor: palette.backgroundPlaySession,
-          body: Stack(
-            children: [
-              Center(
-                // This is the entirety of the "game".
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: InkResponse(
-                        onTap: () => GoRouter.of(context).push('/settings'),
-                        child: Image.asset(
-                          'assets/images/settings.png',
-                          semanticLabel: 'Settings',
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Text('Arraste o controle para ${widget.level.difficulty}%'
-                        ' ou mais!'),
-                    Consumer<LevelState>(
-                      builder: (context, levelState, child) => Slider(
-                        label: 'Progresso do Nível',
-                        autofocus: true,
-                        value: levelState.progress / 100,
-                        onChanged: (value) =>
-                            levelState.setProgress((value * 100).round()),
-                        onChangeEnd: (value) => levelState.evaluate(),
-                      ),
-                    ),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () => GoRouter.of(context).pop(),
-                          child: const Text('Voltar'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox.expand(
-                child: Visibility(
-                  visible: _duringCelebration,
-                  child: IgnorePointer(
-                    child: Confetti(
-                      isStopped: !_duringCelebration,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    return MaterialApp(
+        home: Game(
+            map: level.map,
+            xPositionHero: level.xHeroPosition,
+            yPositionHero: level.yHeroPosition));
   }
 
   @override

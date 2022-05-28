@@ -1,0 +1,14 @@
+{ "columns":56,
+ "image":"..\/..\/characters\/Premade_Character_07.png",
+ "imageheight":656,
+ "imagewidth":896,
+ "margin":0,
+ "name":"Premade_Character_07",
+ "spacing":0,
+ "tilecount":2296,
+ "tiledversion":"1.8.5",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}
