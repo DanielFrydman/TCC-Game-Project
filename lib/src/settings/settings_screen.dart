@@ -6,26 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../in_app_purchase/in_app_purchase.dart';
 import '../player_progress/player_progress.dart';
-import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 import 'custom_name_dialog.dart';
 import 'settings.dart';
 
+const _gap = SizedBox(height: 40);
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-
-  static const _gap = SizedBox(height: 40);
 
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsController>();
-    final palette = context.watch<Palette>();
 
     return Scaffold(
-      backgroundColor: palette.backgroundSettings,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -121,6 +119,16 @@ class SettingsScreen extends StatelessWidget {
                   );
                 },
               ),
+              _SettingsLine(
+                'Créditos',
+                Image.asset('assets/images/buttons/credits.png', scale: 0.5),
+                onSelected: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => _Credits()),
+                  );
+                },
+              ),
               _gap,
               ElevatedButton(
                 onPressed: () {
@@ -204,6 +212,157 @@ class _SettingsLine extends StatelessWidget {
             const Spacer(),
             icon,
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Credits extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage(backgrounds[getBackgroundForDayTime()]),
+                fit: BoxFit.cover)),
+        child: ResponsiveScreen(
+          squarishMainArea: ListView(
+            children: [
+              _gap,
+              Text(
+                'Créditos',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.vt323(
+                    textStyle: TextStyle(
+                        fontSize: 80,
+                        fontWeight: FontWeight.w300,
+                        shadows: <Shadow>[
+                      Shadow(
+                          color: Colors.white,
+                          offset: Offset(0, 0),
+                          blurRadius: 30)
+                    ])),
+              ),
+              _gap,
+              InkResponse(
+                highlightShape: BoxShape.rectangle,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text('Sprites         - ',
+                              style: GoogleFonts.vt323(
+                                  textStyle: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w300))),
+                          GestureDetector(
+                            child: Text('https://limezu.itch.io/',
+                                style: GoogleFonts.vt323(
+                                    textStyle: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.pink,
+                                        decoration: TextDecoration.underline))),
+                            onTap: () async {
+                              var url = Uri.parse('https://limezu.itch.io/');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('Música          - ',
+                              style: GoogleFonts.vt323(
+                                  textStyle: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w300))),
+                          GestureDetector(
+                            child: Text(
+                                'https://opengameart.org/users/zane-little-music',
+                                style: GoogleFonts.vt323(
+                                    textStyle: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.pink,
+                                        decoration: TextDecoration.underline))),
+                            onTap: () async {
+                              var url = Uri.parse(
+                                  'https://opengameart.org/users/zane-little-music');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('Planos de Fundo - ',
+                              style: GoogleFonts.vt323(
+                                  textStyle: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w300))),
+                          GestureDetector(
+                            child: Text(
+                                'https://digitalmoons.itch.io/pixel-skies-demo',
+                                style: GoogleFonts.vt323(
+                                    textStyle: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.pink,
+                                        decoration: TextDecoration.underline))),
+                            onTap: () async {
+                              var url = Uri.parse(
+                                  'https://digitalmoons.itch.io/pixel-skies-demo');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('Ícones          - ',
+                              style: GoogleFonts.vt323(
+                                  textStyle: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w300))),
+                          GestureDetector(
+                            child: Text('https://blackdragon1727.itch.io/',
+                                style: GoogleFonts.vt323(
+                                    textStyle: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.pink,
+                                        decoration: TextDecoration.underline))),
+                            onTap: () async {
+                              var url =
+                                  Uri.parse('https://blackdragon1727.itch.io/');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              _gap,
+              ElevatedButton(
+                onPressed: () {
+                  GoRouter.of(context).pop();
+                },
+                child: Text('Voltar',
+                    style: GoogleFonts.vt323(
+                        textStyle: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.w300))),
+              ),
+              _gap,
+            ],
+          ),
         ),
       ),
     );
