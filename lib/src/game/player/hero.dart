@@ -1,5 +1,9 @@
 import 'package:bonfire/bonfire.dart';
+import 'package:game_template/src/game/decorations/awnserLeft.dart';
+import 'package:game_template/src/game/decorations/awnserRight.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
+
+bool _playerIsClose = false;
 
 class GameHero extends SimplePlayer with ObjectCollision {
   GameHero(Vector2 position)
@@ -27,8 +31,8 @@ class GameHero extends SimplePlayer with ObjectCollision {
 
   @override
   void joystickAction(JoystickActionEvent event) {
-    if (event.id == 1) {
-      print('ativar computador');
+    if (event.event == ActionEvent.DOWN && event.id == 1) {
+      _executeAtack();
     }
     super.joystickAction(event);
   }
@@ -36,5 +40,9 @@ class GameHero extends SimplePlayer with ObjectCollision {
   @override
   void joystickChangeDirectional(JoystickDirectionalEvent event) {
     super.joystickChangeDirectional(event);
+  }
+
+  void _executeAtack() {
+    simpleAttackMelee(damage: 1, size: Vector2(16, 16), sizePush: 0);
   }
 }

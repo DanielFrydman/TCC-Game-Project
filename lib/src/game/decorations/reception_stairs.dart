@@ -1,9 +1,9 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/game/game.dart';
+import 'package:game_template/src/level_selection/levels.dart';
 
 class ReceptionStairs extends GameDecoration with Sensor {
-  double dt = 0;
   bool _playerIsClose = false;
 
   ReceptionStairs(Vector2 position)
@@ -22,9 +22,10 @@ class ReceptionStairs extends GameDecoration with Sensor {
   void _goNextStage() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
       return Game(
-          map: 'map/introduction/auditorium.json',
-          xPositionHero: 25,
-          yPositionHero: 39);
+          world: subLevelsWorldOne[0].world,
+          map: subLevelsWorldOne[0].map,
+          xPositionHero: subLevelsWorldOne[0].xHeroPosition,
+          yPositionHero: subLevelsWorldOne[0].yHeroPosition);
     }));
   }
 }

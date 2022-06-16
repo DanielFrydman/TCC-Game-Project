@@ -17,7 +17,9 @@ import 'settings.dart';
 const _gap = SizedBox(height: 40);
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  const SettingsScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -341,6 +343,29 @@ class _Credits extends StatelessWidget {
                             onTap: () async {
                               var url =
                                   Uri.parse('https://blackdragon1727.itch.io/');
+                              if (await canLaunchUrl(url)) launchUrl(url);
+                            },
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text('Alguns Efeitos  - ',
+                              style: GoogleFonts.vt323(
+                                  textStyle: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w300))),
+                          GestureDetector(
+                            child: Text('https://nyknck.itch.io/',
+                                style: GoogleFonts.vt323(
+                                    textStyle: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.pink,
+                                        decoration: TextDecoration.underline))),
+                            onTap: () async {
+                              var url =
+                                  Uri.parse('https://nyknck.itch.io/');
                               if (await canLaunchUrl(url)) launchUrl(url);
                             },
                           ),

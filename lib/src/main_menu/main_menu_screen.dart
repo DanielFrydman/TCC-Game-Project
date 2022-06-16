@@ -12,7 +12,9 @@ import '../games_services/games_services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainMenuScreen extends StatelessWidget {
-  const MainMenuScreen({super.key});
+  const MainMenuScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

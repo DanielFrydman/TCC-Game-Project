@@ -1,6 +1,8 @@
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/game/game.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
+import 'package:game_template/src/level_selection/levels.dart';
 
 bool _playerIsClose = false;
 
@@ -61,26 +63,15 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
         Say(
             text: [const TextSpan(text: '. . . . . .')],
             person: SizedBox(
-              height: 150,
-              width: 150,
+              height: 100,
+              width: 100,
               child: GameSpriteSheet.idleDown.asWidget(),
             )),
         Say(
             text: [
               const TextSpan(
                   text:
-                      'Pois bem... Dando início a minha palestra sobre [----TEXTO PRONTO COM MATÉRIA----].')
-            ],
-            person: SizedBox(
-              height: 100,
-              width: 100,
-              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
-            ),
-            personSayDirection: PersonSayDirection.RIGHT),
-        Say(
-            text: [
-              const TextSpan(
-                  text: 'Bom, pelas imagens no projetor vocês podem ver..')
+                      'Pois bem... Dando início a minha palestra sobre como e porque se deve reduzir o uso de pen drives por empresas, pergunto a vocês, como se manter a segurança e a rapidez nos canais de transmissão de arquivos reduzindo o uso do pen drive?')
             ],
             person: SizedBox(
               height: 100,
@@ -92,7 +83,55 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
             text: [
               const TextSpan(
                   text:
-                      'Senhor.. estamos com problemas com a conexão do projetor..')
+                      'Bom, existem diversos pontos negativos para uso desses dispositivos portáteis. Citando algum deles, dispositivo passível de perda/roubo, usado muito como instrumento de ataques cibernéticos, fácil roubo de informações confidenciais de empresas, dentre outros mas principalmente fonte de virus.')
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Não entraremos em detalhes sobre os tipos de vírus nessa palestra mas para vocês ficarem sabendo, um vírus é um software(um programa) malicioso que é desenvolvido por programadores inescrupulosos. Esses programas infectam o sistema do usuário realizam ações sem que dono do sistema saiba.')
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Voltando ao assunto, existem pesquisas que comprovam que 30% dos vírus encontrados em máquinas são provenientes de pen drives... Muitas empresas resolveram banir o uso de dispositivos portáteis como solução de segurança.')
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Pretendo mostrar a vocês uns dados que trouxe e pelas imagens no projetor vocês podem ver...')
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'Senhor... Nós estamos com problemas com a conexão do projetor...')
             ],
             person: SizedBox(
               height: 100,
@@ -103,7 +142,7 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
             text: [
               const TextSpan(
                   text:
-                      'Se me permitirem, eu posso copiar a palestra por pen-drive!')
+                      'Se me permitirem, eu posso copiar a palestra por pen drive!')
             ],
             person: SizedBox(
               height: 100,
@@ -111,11 +150,7 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
               child: GameSpriteSheet.auditoriumPenDriveGirl.asWidget(),
             )),
         Say(
-            text: [
-              const TextSpan(
-                  text:
-                      'VOCÊ ESTÁ DOIDA?! Não prestou atenção no que acabei de explicar?')
-            ],
+            text: [const TextSpan(text: '. . . . . . . . . . . .')],
             person: SizedBox(
               height: 100,
               width: 100,
@@ -124,7 +159,23 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
             personSayDirection: PersonSayDirection.RIGHT),
       ], onClose: () {
         gameRef.camera.moveToPlayerAnimated(zoom: 2);
-      }, onFinish: () {});
+      }, onFinish: () {
+        _goNextStage();
+      });
     });
+  }
+
+  void _goNextStage() {
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
+      return Game(
+          world: subLevelsWorldOne[1].world,
+          map: subLevelsWorldOne[1].map,
+          xPositionHero: subLevelsWorldOne[1].xHeroPosition,
+          yPositionHero: subLevelsWorldOne[1].yHeroPosition,
+          question: subLevelsWorldOne[1].question,
+          rightAwnser: subLevelsWorldOne[1].rightAwnser,
+          wrongAwnser: subLevelsWorldOne[1].wrongAwnser,
+          awnser: subLevelsWorldOne[1].awnser);
+    }));
   }
 }

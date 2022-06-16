@@ -55,8 +55,8 @@ class Totem extends GameDecoration with ObjectCollision {
           Say(
               text: [const TextSpan(text: 'Poxa, que legal!')],
               person: SizedBox(
-                height: 150,
-                width: 150,
+                height: 100,
+                width: 100,
                 child: GameSpriteSheet.readingBook.asWidget(),
               )),
           Say(
@@ -92,8 +92,8 @@ class Totem extends GameDecoration with ObjectCollision {
           Say(
               text: [const TextSpan(text: 'Certo...')],
               person: SizedBox(
-                height: 150,
-                width: 150,
+                height: 100,
+                width: 100,
                 child: GameSpriteSheet.readingBook.asWidget(),
               )),
           Say(
@@ -123,8 +123,8 @@ class Totem extends GameDecoration with ObjectCollision {
           Say(
               text: [const TextSpan(text: '. . . . . . . ops . . . . . . .')],
               person: SizedBox(
-                height: 150,
-                width: 150,
+                height: 100,
+                width: 100,
                 child: GameSpriteSheet.readingBook.asWidget(),
               ))
         ],

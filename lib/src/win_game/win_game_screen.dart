@@ -17,9 +17,9 @@ class WinGameScreen extends StatelessWidget {
   final Score score;
 
   const WinGameScreen({
-    super.key,
     required this.score,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class WinGameScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             if (adsControllerAvailable && !adsRemoved) ...[
-              const Expanded(
+              Expanded(
                 child: Center(
                   child: BannerAdWidget(),
                 ),
@@ -60,11 +60,11 @@ class WinGameScreen extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-          onPressed: () {
-            GoRouter.of(context).pop();
-          },
-          child: const Text('Continuar'),
-        ),
+              onPressed: () {
+                GoRouter.of(context).pop();
+              },
+              child: const Text('Continuar'),
+            ),
           ],
         ),
       ),

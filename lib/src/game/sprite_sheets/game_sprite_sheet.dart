@@ -105,4 +105,24 @@ class GameSpriteSheet {
     'characters/Premade_Character_06.png',
     SpriteAnimationData.sequenced(amount: 6, stepTime: 0.15, textureSize: Vector2(16, 32), texturePosition: Vector2(288,33)),
   );
+
+  static Future<SpriteAnimation> get nothing => SpriteAnimation.load(
+    'characters/Premade_Character_06.png',
+    SpriteAnimationData.sequenced(amount: 1, stepTime: 0.1, textureSize: Vector2(0, 0), texturePosition: Vector2(0,0)),
+  );
+
+  static Future<SpriteAnimation> get fxBlueLightning => SpriteAnimation.load(
+    'fxs/FX002_08.png',
+    SpriteAnimationData.sequenced(amount: 6, stepTime: 0.1, textureSize: Vector2(32, 32), texturePosition: Vector2(0,0)),
+  );
+
+  static Future<SpriteAnimation> get fxFirstSmoke => SpriteAnimation.load(
+    'fxs/FX002_08.png',
+    SpriteAnimationData.sequenced(amount: 5, stepTime: 0.15, textureSize: Vector2(32, 32), texturePosition: Vector2(192,0)),
+  );
+
+  static Future<SpriteAnimation> get fxSecondSmoke => SpriteAnimation.load(
+    'fxs/FX002_08.png',
+    SpriteAnimationData.sequenced(amount: 8, stepTime: 0.1, textureSize: Vector2(32, 32), texturePosition: Vector2(352,0)),
+  );
 }

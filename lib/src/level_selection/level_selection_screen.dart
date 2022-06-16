@@ -15,9 +15,9 @@ import '../style/palette.dart';
 import '../style/responsive_screen.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
-  const LevelSelectionScreen({super.key});
-
-  static const _gap = SizedBox(height: 40);
+  const LevelSelectionScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

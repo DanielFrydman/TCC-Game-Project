@@ -17,7 +17,8 @@ void showCustomNameDialog(BuildContext context) {
 class CustomNameDialog extends StatefulWidget {
   final Animation<double> animation;
 
-  const CustomNameDialog({required this.animation, super.key});
+  const CustomNameDialog({required this.animation, Key? key,
+}) : super(key: key);
 
   @override
   State<CustomNameDialog> createState() => _CustomNameDialogState();

@@ -31,7 +31,9 @@ import 'preloaded_banner_ad.dart';
 /// namely the `anchored_adaptive_example.dart` file:
 /// https://github.com/googleads/googleads-mobile-flutter/blob/main/packages/google_mobile_ads/example/lib/anchored_adaptive_example.dart
 class BannerAdWidget extends StatefulWidget {
-  const BannerAdWidget({super.key});
+  const BannerAdWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<BannerAdWidget> createState() => _BannerAdWidgetState();

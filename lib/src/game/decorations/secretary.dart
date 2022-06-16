@@ -50,8 +50,8 @@ class Secretary extends GameDecoration with ObjectCollision {
         Say(
             text: [const TextSpan(text: 'AAAHHH!!')],
             person: SizedBox(
-              height: 150,
-              width: 150,
+              height: 100,
+              width: 100,
               child: GameSpriteSheet.idleDown.asWidget(),
             ))
       ], onClose: () {
