@@ -4,9 +4,12 @@ import 'package:game_template/src/game/decorations/are_you_sure.dart';
 import 'package:game_template/src/game/decorations/awnserLeft.dart';
 import 'package:game_template/src/game/decorations/awnserRight.dart';
 import 'package:game_template/src/game/decorations/candle.dart';
+import 'package:game_template/src/game/decorations/first_npc_clothes.dart';
 import 'package:game_template/src/game/decorations/question.dart';
 import 'package:game_template/src/game/decorations/reception_stairs.dart';
+import 'package:game_template/src/game/decorations/second_npc_clothes.dart';
 import 'package:game_template/src/game/decorations/secretary.dart';
+import 'package:game_template/src/game/decorations/third_npc_clothes.dart';
 import 'package:game_template/src/game/decorations/totem.dart';
 import 'package:game_template/src/game/npcs/auditoriumNpc.dart';
 import 'player/hero.dart';
@@ -20,6 +23,7 @@ class Game extends StatefulWidget {
   final String rightAwnser;
   final String wrongAwnser;
   final int awnser;
+  final Direction direction;
 
   Game({
     Key? key,
@@ -31,6 +35,7 @@ class Game extends StatefulWidget {
     this.rightAwnser = "",
     this.wrongAwnser = "",
     this.awnser = 0,
+    this.direction = Direction.up
   }) : super(key: key);
 
   @override
@@ -42,7 +47,8 @@ class Game extends StatefulWidget {
       this.question,
       this.rightAwnser,
       this.wrongAwnser,
-      this.awnser);
+      this.awnser,
+      this.direction);
 }
 
 class _GameState extends State<Game> {
@@ -55,9 +61,10 @@ class _GameState extends State<Game> {
   final rightAwnser;
   final wrongAwnser;
   final awnser;
+  final Direction direction;
 
   _GameState(this.world, this.map, this.xPositionHero, this.yPositionHero,
-      this.question, this.rightAwnser, this.wrongAwnser, this.awnser);
+      this.question, this.rightAwnser, this.wrongAwnser, this.awnser, this.direction);
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +91,13 @@ class _GameState extends State<Game> {
         'awnserLeft': (properties) => AwnserLeft(properties.position,
             this.world, this.rightAwnser, this.wrongAwnser, this.awnser),
         'awnserRight': (properties) => AwnserRight(properties.position,
-            this.world, this.rightAwnser, this.wrongAwnser, this.awnser)
+            this.world, this.rightAwnser, this.wrongAwnser, this.awnser),
+        'firstNpcClothes': (properties) => FirstNpcClothes(properties.position),
+        'secondNpcClothes': (properties) => SecondNpcClothes(properties.position),
+        'thirdNpcClothes': (properties) => ThirdNpcClothes(properties.position)
       }),
       player: GameHero(
-          Vector2(xPositionHero * titleSize, yPositionHero * titleSize)),
+          Vector2(xPositionHero * titleSize, yPositionHero * titleSize), direction),
       showCollisionArea: false,
       cameraConfig: CameraConfig(
         moveOnlyMapArea: false,

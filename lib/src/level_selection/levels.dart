@@ -1,3 +1,4 @@
+import 'package:bonfire/bonfire.dart';
 // Copyright 2022, the Flutter project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -29,6 +30,26 @@ final subLevelsWorldOne = [
   )
 ];
 
+final subLevelsWorldTwo = [
+  GameLevel(
+    number: 2,
+    map: 'map/questions.json',
+    world: 2,
+    difficulty: 10,
+    xHeroPosition: 24,
+    yHeroPosition: 39,
+    question: '''Você aceitaria tirar uma foto utilizando o crachá da sua empresa?
+    a) Não.
+    b) Sim.''',
+    rightAwnser:
+        'Excelente resposta! Não devemos postar fotos utilizando crachás com nossas informações.   :)',
+    wrongAwnser:
+        'Você errou! A consequência da sua escolha seria u criminoso se passando por você, um verdadeiro perigo!   :(',
+    awnser: 1,
+  )
+];
+
+
 final gameLevels = [
   GameLevel(
       number: 1,
@@ -39,11 +60,12 @@ final gameLevels = [
       yHeroPosition: 38),
   GameLevel(
       number: 2,
-      map: 'map/introduction/reception.json',
+      map: 'map/world_2/clothing_store.json',
       world: 2,
       difficulty: 10,
-      xHeroPosition: 24,
-      yHeroPosition: 38),
+      xHeroPosition: 15,
+      yHeroPosition: 37,
+      direction: Direction.right),
 ];
 
 class GameLevel {
@@ -57,6 +79,7 @@ class GameLevel {
   final String rightAwnser;
   final String wrongAwnser;
   final int awnser;
+  final Direction direction;
 
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;
@@ -76,6 +99,7 @@ class GameLevel {
     this.rightAwnser = "",
     this.wrongAwnser = "",
     this.awnser = 0,
+    this.direction = Direction.up,
     this.achievementIdIOS,
     this.achievementIdAndroid,
   }) : assert(

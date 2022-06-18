@@ -1,18 +1,16 @@
 import 'package:bonfire/bonfire.dart';
-import 'package:game_template/src/game/decorations/awnserLeft.dart';
-import 'package:game_template/src/game/decorations/awnserRight.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
-bool _playerIsClose = false;
-
 class GameHero extends SimplePlayer with ObjectCollision {
-  GameHero(Vector2 position)
+  final direction = Direction.up;
+
+  GameHero(Vector2 position, direction)
       : super(
           position: position, //required
           size: Vector2(16, 32), //required
           life: 100,
           speed: 50,
-          initDirection: Direction.up,
+          initDirection: direction,
           animation: SimpleDirectionAnimation(
             idleLeft: GameSpriteSheet.heroIdleLeft,
             idleRight: GameSpriteSheet.heroIdleRight, //required
