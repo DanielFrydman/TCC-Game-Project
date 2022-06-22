@@ -98,7 +98,7 @@ class _GameState extends State<Game> {
       }),
       player: GameHero(
           Vector2(xPositionHero * titleSize, yPositionHero * titleSize), direction),
-      showCollisionArea: false,
+      showCollisionArea: true,
       cameraConfig: CameraConfig(
         moveOnlyMapArea: false,
         zoom: 2,

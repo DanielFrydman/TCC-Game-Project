@@ -111,6 +111,7 @@ void guardedMain() {
   //   inAppPurchaseController.restorePurchases();
   // }
 
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
       .then((value) => runApp(
             MyApp(

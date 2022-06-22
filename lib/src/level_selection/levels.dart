@@ -1,4 +1,5 @@
 import 'package:bonfire/bonfire.dart';
+
 // Copyright 2022, the Flutter project authors. Please see the AUTHORS file
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
@@ -38,17 +39,17 @@ final subLevelsWorldTwo = [
     difficulty: 10,
     xHeroPosition: 24,
     yHeroPosition: 39,
-    question: '''Você aceitaria tirar uma foto utilizando o crachá da sua empresa?
+    question:
+        '''Você aceitaria tirar uma foto utilizando o crachá da sua empresa?
     a) Não.
     b) Sim.''',
     rightAwnser:
         'Excelente resposta! Não devemos postar fotos utilizando crachás com nossas informações.   :)',
     wrongAwnser:
-        'Você errou! A consequência da sua escolha seria u criminoso se passando por você, um verdadeiro perigo!   :(',
+        'Você errou! A consequência da sua escolha seria um criminoso se passando por você, um verdadeiro perigo!   :(',
     awnser: 1,
   )
 ];
-
 
 final gameLevels = [
   GameLevel(
@@ -65,6 +66,30 @@ final gameLevels = [
       difficulty: 10,
       xHeroPosition: 15,
       yHeroPosition: 37,
+      direction: Direction.right),
+  GameLevel(
+      number: 3,
+      map: 'map/world_3-4-5/world_3-4-5.json',
+      world: 3,
+      difficulty: 10,
+      xHeroPosition: 16,
+      yHeroPosition: 35,
+      direction: Direction.right),
+  GameLevel(
+      number: 4,
+      map: 'map/world_3-4-5/world_3-4-5.json',
+      world: 4,
+      difficulty: 10,
+      xHeroPosition: 22,
+      yHeroPosition: 22,
+      direction: Direction.up),
+  GameLevel(
+      number: 5,
+      map: 'map/world_3-4-5/world_3-4-5.json',
+      world: 5,
+      difficulty: 10,
+      xHeroPosition: 26,
+      yHeroPosition: 14,
       direction: Direction.right),
 ];
 

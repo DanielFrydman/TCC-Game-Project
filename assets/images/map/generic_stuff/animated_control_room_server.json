@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"animated_control_room_server.png",
+ "imageheight":48,
+ "imagewidth":48,
+ "margin":0,
+ "name":"animated_control_room_server",
+ "spacing":0,
+ "tilecount":9,
+ "tiledversion":"1.8.5",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.8"
+}
