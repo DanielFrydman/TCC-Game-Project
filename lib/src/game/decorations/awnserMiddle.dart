@@ -5,16 +5,16 @@ import 'package:game_template/src/player_progress/player_progress.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
-class AwnserLeft extends SimpleEnemy {
+class AwnserMiddle extends SimpleEnemy {
   final String rightAwnser;
   final String wrongAwnser;
   final int awnser;
-  final int awnserRecord = 1;
+  final int awnserRecord = 3;
   final int world;
   final String rightAwnserBonus;
   final int bonusAwnser;
 
-  AwnserLeft(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser,
+  AwnserMiddle(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser,
       this.awnser, this.rightAwnserBonus, this.bonusAwnser)
       : super(
             position: position,

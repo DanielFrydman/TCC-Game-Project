@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:bonfire/bonfire.dart';
 
 // Copyright 2022, the Flutter project authors. Please see the AUTHORS file
@@ -17,14 +19,14 @@ final subLevelsWorldOne = [
     world: 1,
     difficulty: 10,
     xHeroPosition: 24,
-    yHeroPosition: 39,
+    yHeroPosition: 26,
     question: '''Você aceitaria o pen drive para copiar a palestra?
     a) Sim.
     b) Não.''',
     rightAwnser:
-        'Excelente resposta! A melhor decisão a se tomar é utilizar outro meio de compartilhamento de dados.   :)',
+        'Excelente resposta! A melhor decisão a se tomar é utilizar outro meio de compartilhamento de dados.   😀👏',
     wrongAwnser:
-        'Você errou! A consequência da sua escolha seria um Malware(um tipo de vírus) implantado no seu computador que poderia te trazer diversos problemas.   :(',
+        'Você errou! A consequência da sua escolha seria um Malware(um tipo de vírus) implantado no seu computador que poderia te trazer diversos problemas.   🙁',
     awnser: 2,
     achievementIdIOS: 'first_win',
     achievementIdAndroid: 'NhkIwB69ejkMAOOLDb',
@@ -33,22 +35,84 @@ final subLevelsWorldOne = [
 
 final subLevelsWorldTwo = [
   GameLevel(
-    number: 2,
-    map: 'map/questions.json',
-    world: 2,
-    difficulty: 10,
-    xHeroPosition: 24,
-    yHeroPosition: 39,
-    question:
-        '''Você aceitaria tirar uma foto utilizando o crachá da sua empresa?
+      number: 2,
+      map: 'map/questions.json',
+      world: 2,
+      difficulty: 10,
+      xHeroPosition: 24,
+      yHeroPosition: 26,
+      question:
+          '''Você aceitaria tirar uma foto utilizando o crachá da sua empresa?
     a) Não.
     b) Sim.''',
-    rightAwnser:
-        'Excelente resposta! Não devemos postar fotos utilizando crachás com nossas informações.   :)',
-    wrongAwnser:
-        'Você errou! A consequência da sua escolha seria um criminoso se passando por você, um verdadeiro perigo!   :(',
-    awnser: 1,
-  )
+      rightAwnser:
+          'Excelente resposta! Não devemos postar fotos utilizando crachás com nossas informações.   😀👏',
+      wrongAwnser:
+          'Você errou! A consequência da sua escolha seria um criminoso se passando por você, um verdadeiro perigo!   🙁',
+      awnser: 1)
+];
+
+final subLevelsWorldThree = [
+  GameLevel(
+      number: 3,
+      map: 'map/questions.json',
+      world: 3,
+      difficulty: 10,
+      xHeroPosition: 24,
+      yHeroPosition: 26,
+      question:
+          '''Você deixaria seu colega informar uma série de informações sensíveis do computador para o fórum técnico?
+    a) Sim.
+    b) Não.''',
+      rightAwnser:
+          'Excelente resposta! Não devemos passar as informações e o que deveria ser feito seria buscar o help desk para resolver o problema. Help Desk seria o canal da empresa para ajudas técnicas.   😀👏',
+      wrongAwnser:
+          'Você errou! A consequência da sua escolha poderia ser alguém usando as informações para acessar remotamente o seu computador!   🙁',
+      awnser: 2)
+];
+
+final subLevelsWorldFour = [
+  GameLevel(
+      number: 4,
+      map: 'map/questions.json',
+      world: 4,
+      difficulty: 10,
+      xHeroPosition: 24,
+      yHeroPosition: 26,
+      question:
+          '''Você deixaria sua colega baixar a ferramenta que o suposto chefe solicitou por e-mail?
+    a) Sim.
+    b) Não.''',
+      rightAwnser:
+          'Excelente resposta! Você identificou que o e-mail se tratava de uma engenharia social e que era uma tentativa criminosa de instalar um malware(vírus) no computador.   😀👏',
+      wrongAwnser:
+          'Você errou! A consequência da sua escolha seria a instalação de um malware(vírus) no seu computador!   🙁',
+      awnser: 2)
+];
+
+final subLevelsWorldFive = [
+  GameLevel(
+      number: 5,
+      map: 'map/questionsBonusRound.json',
+      world: 5,
+      difficulty: 10,
+      xHeroPosition: 24,
+      yHeroPosition: 26,
+      question:
+          '''Você deixaria seu colega inserir os dados para atualização de senha?
+      a) Sim.
+      b) Não.
+      c) Não e avisaria ao setor de segurança que a empresa está sob ataque direcionado.''',
+      rightAwnser:
+          'Excelente resposta! Você identificou se tratava de um site falso para tentar roubar os dados dos usuários.   😀👏',
+      wrongAwnser:
+          'Você errou! A consequência seriam suas credenciais sendo roubadas por um criminoso.   🙁',
+      rightAwnserBonus:
+          'Excepcional!!! Sem dúvidas, essa seria a melhor solução a se tomar. Além de identificar que se tratava de um site falso para tentar roubar os dados dos usuários, avisou a equipe que a empresa estava sob ataque.     😀👏',
+      awnser: 2,
+      bonusAwnser: 3,
+      bonusOption:
+          'Não e avisaria ao setor de segurança que a empresa está sob ataque direcionado')
 ];
 
 final gameLevels = [
@@ -89,7 +153,7 @@ final gameLevels = [
       world: 5,
       difficulty: 10,
       xHeroPosition: 26,
-      yHeroPosition: 14,
+      yHeroPosition: 13,
       direction: Direction.right),
 ];
 
@@ -105,6 +169,9 @@ class GameLevel {
   final String wrongAwnser;
   final int awnser;
   final Direction direction;
+  final int bonusAwnser;
+  final String rightAwnserBonus;
+  final String bonusOption;
 
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;
@@ -125,6 +192,9 @@ class GameLevel {
     this.wrongAwnser = "",
     this.awnser = 0,
     this.direction = Direction.up,
+    this.bonusAwnser = 0,
+    this.rightAwnserBonus = "",
+    this.bonusOption = "",
     this.achievementIdIOS,
     this.achievementIdAndroid,
   }) : assert(

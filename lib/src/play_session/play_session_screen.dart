@@ -39,7 +39,8 @@ class _PlaySessionScreenState extends State<PlaySessionScreen> {
             rightAwnser: level.rightAwnser,
             wrongAwnser: level.wrongAwnser,
             awnser: level.awnser,
-            direction: level.direction));
+            direction: level.direction,
+            bonusOption: level.bonusOption));
   }
 
   @override

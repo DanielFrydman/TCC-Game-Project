@@ -6,7 +6,7 @@ class AreYouSure extends GameDecoration with Sensor {
   bool _playerIsClose = false;
 
   AreYouSure(Vector2 position)
-      : super(position: position, size: Vector2(80, 70)) {
+      : super(position: position, size: Vector2(80, 100)) {
     setupSensorArea(intervalCheck: 500);
   }
 

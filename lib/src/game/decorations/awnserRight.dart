@@ -11,8 +11,11 @@ class AwnserRight extends SimpleEnemy {
   final int awnser;
   final int awnserRecord = 2;
   final int world;
+  final String rightAwnserBonus;
+  final int bonusAwnser;
 
-  AwnserRight(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser, this.awnser)
+  AwnserRight(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser,
+      this.awnser, this.rightAwnserBonus, this.bonusAwnser)
       : super(
             position: position,
             size: Vector2(45, 28),
@@ -36,11 +39,53 @@ class AwnserRight extends SimpleEnemy {
     if (awnserRecord == awnser) {
       animation?.playOnce(GameSpriteSheet.fxBlueLightning);
       _showRightAwnserDialog(this);
+    } else if (awnserRecord == bonusAwnser) {
+      animation?.playOnce(GameSpriteSheet.fxBlueLightning);
+      _showBonusAwnserDialog(this);
     } else {
       animation?.playOnce(GameSpriteSheet.fxFirstSmoke);
       _showWrongAwnserDialog(this);
     }
     super.receiveDamage(attacker, damage, from);
+  }
+
+  void _showBonusAwnserDialog(GameComponent first) {
+    gameRef.camera.moveToTargetAnimated(first, zoom: 2.2, finish: () {
+      TalkDialog.show(context, [
+        Say(
+            text: [TextSpan(text: 'Caramba!')],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [TextSpan(text: this.rightAwnserBonus)],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
+              TextSpan(
+                  text:
+                      'Você concluiu esse mundo! Vá para o próximo e continue os estudos.')
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+      ], onClose: () {
+        gameRef.camera.moveToPlayerAnimated(zoom: 2);
+      }, onFinish: () {
+        _goNextStage();
+      });
+    });
   }
 
   void _showRightAwnserDialog(GameComponent first) {

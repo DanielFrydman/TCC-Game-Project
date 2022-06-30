@@ -4,12 +4,13 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
-class Question extends GameDecoration with Sensor {
+class QuestionBonus extends GameDecoration with Sensor {
   bool _playerIsClose = false;
   final String question;
+  final String bonusOption;
 
-  Question(Vector2 position, this.question)
-      : super(position: position, size: Vector2(180, 78)) {
+  QuestionBonus(Vector2 position, this.question, this.bonusOption)
+      : super(position: position, size: Vector2(335, 78)) {
     setupSensorArea(intervalCheck: 500);
   }
 
@@ -66,11 +67,28 @@ class Question extends GameDecoration with Sensor {
             personSayDirection: PersonSayDirection.RIGHT),
         Say(
             text: [
+              TextSpan(text: 'Siga em '),
+              TextSpan(
+                  text: 'frente', style: TextStyle(color: Colors.tealAccent)),
+              TextSpan(text: ' caso ache que a resposta certa seja a letra '),
+              TextSpan(
+                  text: "b) (${getAwnserByOption("b) ")})",
+                  style: TextStyle(color: Colors.tealAccent)),
+              TextSpan(text: '.'),
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.auditoriumNpcIdleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT),
+        Say(
+            text: [
               TextSpan(text: 'Vá para a '),
               TextSpan(text: 'direita', style: TextStyle(color: Colors.red)),
               TextSpan(text: ' caso ache que a resposta certa seja a letra '),
               TextSpan(
-                  text: "b) (${getAwnserByOption("b) ")})",
+                  text: "c) (${getAwnserByOption("c) ")})",
                   style: TextStyle(color: Colors.red)),
               TextSpan(text: '.'),
             ],
@@ -111,6 +129,13 @@ class Question extends GameDecoration with Sensor {
   String getAwnserByOption(optionInString) {
     final question = this.question;
     final index = question.indexOf(optionInString);
-    return question[index + 3] + question[index + 4] + question[index + 5];
+    final option =
+        question[index + 3] + question[index + 4] + question[index + 5];
+
+    if (question[index + 6] == '.') {
+      return option;
+    }
+
+    return bonusOption;
   }
 }

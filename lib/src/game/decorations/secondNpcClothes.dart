@@ -35,7 +35,9 @@ class SecondNpcClothes extends GameDecoration {
         [
           Say(
             text: [
-              const TextSpan(text: 'Você viu o que uma moça postou naquela rede social de fotos?'),
+              const TextSpan(
+                  text:
+                      'Você viu o que uma moça postou naquela rede social de fotos?'),
             ],
             person: SizedBox(
               height: 100,
@@ -57,7 +59,8 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Ela postou uma foto utilizando o crachá da empresa!'),
+              const TextSpan(
+                  text: 'Ela postou uma foto utilizando o crachá da empresa!'),
             ],
             person: SizedBox(
               height: 100,
@@ -79,7 +82,8 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Fazer isso é um grave incidente!!! Você não sabia?'),
+              const TextSpan(
+                  text: 'Fazer isso é um grave incidente!!! Você não sabia?'),
             ],
             person: SizedBox(
               height: 100,
@@ -90,7 +94,9 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Nossa, eu não fazia ideia. Poderia me explicar o motivo?'),
+              const TextSpan(
+                  text:
+                      'Nossa, eu não fazia ideia. Poderia me explicar o motivo?'),
             ],
             person: SizedBox(
               height: 100,
@@ -101,7 +107,9 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Lógico! Não devemos fazer isso porque é um grande perigo. Nunca se sabe quem pode estar por trás da tela vendo suas informações. Cuidar da confidencialidade das informações é cada vez mais importante.'),
+              const TextSpan(
+                  text:
+                      'Lógico! Não devemos fazer isso porque é um grande perigo. Nunca se sabe quem pode estar por trás da tela vendo suas informações. Cuidar da confidencialidade das informações é cada vez mais importante.'),
             ],
             person: SizedBox(
               height: 100,
@@ -112,7 +120,9 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Você pode até ter orgulho da sua empresa, "vestir a camisa" e querer mostrar isso a todos mas as consequências podem ser gravíssimas. Ao fazer isso, pode se tornar visado e de alguma forma monitorado por criminosos virtuais.'),
+              const TextSpan(
+                  text:
+                      'Você pode até ter orgulho da sua empresa, "vestir a camisa" e querer mostrar isso a todos mas as consequências podem ser gravíssimas. Ao fazer isso, pode se tornar visado e de alguma forma monitorado por criminosos virtuais.'),
             ],
             person: SizedBox(
               height: 100,
@@ -123,7 +133,9 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Os criminosos podem replicar o seu crachá para tentar se passar por você e entrar na sua empresa. Além desse caso, suas informações podem ser roubadas e alguém pode tentar se passar por você fora da empresa.'),
+              const TextSpan(
+                  text:
+                      'Os criminosos podem replicar o seu crachá para tentar se passar por você e entrar na sua empresa. Além desse caso, suas informações podem ser roubadas e alguém pode tentar se passar por você fora da empresa.'),
             ],
             person: SizedBox(
               height: 100,
@@ -134,7 +146,9 @@ class SecondNpcClothes extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Nossa... eu não sabia que poderia causar isso tudo. Vou ficar mais ligado daqui pra frente, muito obrigado!'),
+              const TextSpan(
+                  text:
+                      'Nossa... eu não sabia que poderia causar isso tudo. Vou ficar mais ligado daqui pra frente, muito obrigado!'),
             ],
             person: SizedBox(
               height: 100,

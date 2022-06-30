@@ -5,10 +5,10 @@ import 'package:game_template/src/game/player/hero.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 import 'package:game_template/src/level_selection/levels.dart';
 
-class ThirdNpcClothes extends GameDecoration {
+class ThirdNpcOfficeDown extends GameDecoration {
   bool _playerIsClose = false;
 
-  ThirdNpcClothes(Vector2 position)
+  ThirdNpcOfficeDown(Vector2 position)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -26,7 +26,7 @@ class ThirdNpcClothes extends GameDecoration {
         notObserved: () {
           _playerIsClose = false;
         },
-        radiusVision: 10);
+        radiusVision: 15);
     super.update(dt);
   }
 
@@ -37,22 +37,41 @@ class ThirdNpcClothes extends GameDecoration {
         [
           Say(
             text: [
-              const TextSpan(
-                  text:
-                      'Caraca, eu estava te procurando, como você me encontrou?'),
+              const TextSpan(text: 'AAAAAAAAAAAAAAAAAAAAAAAAAAA 😖😖😖'),
             ],
             person: SizedBox(
               height: 100,
               width: 100,
-              child: GameSpriteSheet.thirdNpcClothes.asWidget(),
+              child: GameSpriteSheet.thirdNpcOfficeDown.asWidget(),
             ),
             personSayDirection: PersonSayDirection.RIGHT,
           ),
           Say(
             text: [
+              const TextSpan(text: 'O que foi???'),
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.idleDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.LEFT,
+          ),
+          Say(
+            text: [
               const TextSpan(
-                  text:
-                      'Ah, me contaram na entrada e eu vim te procurar. O que queria comigo?'),
+                  text: 'Estou com um problema e não sei como resolver!!'),
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.thirdNpcOfficeDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT,
+          ),
+          Say(
+            text: [
+              const TextSpan(text: 'Me conte e vamos ver o que podemos fazer.'),
             ],
             person: SizedBox(
               height: 100,
@@ -65,12 +84,12 @@ class ThirdNpcClothes extends GameDecoration {
             text: [
               const TextSpan(
                   text:
-                      'É que você é dos meus, chegou atrasado no primeiro dia, igualzinho a mim.'),
+                      'Apareceu esse problema técnico aqui no meu computador. Já tentei de tudo mas nada parece funcionar...'),
             ],
             person: SizedBox(
               height: 100,
               width: 100,
-              child: GameSpriteSheet.thirdNpcClothes.asWidget(),
+              child: GameSpriteSheet.thirdNpcOfficeDown.asWidget(),
             ),
             personSayDirection: PersonSayDirection.RIGHT,
           ),
@@ -78,7 +97,31 @@ class ThirdNpcClothes extends GameDecoration {
             text: [
               const TextSpan(
                   text:
-                      'Mas eu não fiz de propósito, acabei me atrasando mas sempre sou pontual.'),
+                      'Mas eu tenho uma última alternativa, encontrei esse fórum técnico de dúvidas aqui na internet.'),
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.thirdNpcOfficeDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT,
+          ),
+          Say(
+            text: [
+              const TextSpan(
+                  text:
+                      'A única coisa que eu preciso para me ajudarem a resolver é enviar essas informações sensíveis do computador que estou utilizando e pronto!'),
+            ],
+            person: SizedBox(
+              height: 100,
+              width: 100,
+              child: GameSpriteSheet.thirdNpcOfficeDown.asWidget(),
+            ),
+            personSayDirection: PersonSayDirection.RIGHT,
+          ),
+          Say(
+            text: [
+              const TextSpan(text: '. . . . . . . . . . .'),
             ],
             person: SizedBox(
               height: 100,
@@ -86,45 +129,6 @@ class ThirdNpcClothes extends GameDecoration {
               child: GameSpriteSheet.idleDown.asWidget(),
             ),
             personSayDirection: PersonSayDirection.LEFT,
-          ),
-          Say(
-            text: [
-              const TextSpan(
-                  text:
-                      'Para de história pra cima de mim... vem, vamos tirar um foto juntos! Vou postar naquela rede social de fotos!'),
-            ],
-            person: SizedBox(
-              height: 100,
-              width: 100,
-              child: GameSpriteSheet.thirdNpcClothes.asWidget(),
-            ),
-            personSayDirection: PersonSayDirection.RIGHT,
-          ),
-          Say(
-            text: [
-              const TextSpan(
-                  text:
-                      'Calma aí, estamos com o crachá da empresa...'),
-            ],
-            person: SizedBox(
-              height: 100,
-              width: 100,
-              child: GameSpriteSheet.idleDown.asWidget(),
-            ),
-            personSayDirection: PersonSayDirection.LEFT,
-          ),
-          Say(
-            text: [
-              const TextSpan(
-                  text:
-                      'Não tem problema algum! Eu já fiz isso várias vezes. VAMOS!!!'),
-            ],
-            person: SizedBox(
-              height: 100,
-              width: 100,
-              child: GameSpriteSheet.thirdNpcClothes.asWidget(),
-            ),
-            personSayDirection: PersonSayDirection.RIGHT,
           ),
         ],
         onClose: () {
@@ -140,14 +144,14 @@ class ThirdNpcClothes extends GameDecoration {
   void _goNextStage() {
     Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) {
       return Game(
-          world: subLevelsWorldTwo[0].world,
-          map: subLevelsWorldTwo[0].map,
-          xPositionHero: subLevelsWorldTwo[0].xHeroPosition,
-          yPositionHero: subLevelsWorldTwo[0].yHeroPosition,
-          question: subLevelsWorldTwo[0].question,
-          rightAwnser: subLevelsWorldTwo[0].rightAwnser,
-          wrongAwnser: subLevelsWorldTwo[0].wrongAwnser,
-          awnser: subLevelsWorldTwo[0].awnser);
+          world: subLevelsWorldThree[0].world,
+          map: subLevelsWorldThree[0].map,
+          xPositionHero: subLevelsWorldThree[0].xHeroPosition,
+          yPositionHero: subLevelsWorldThree[0].yHeroPosition,
+          question: subLevelsWorldThree[0].question,
+          rightAwnser: subLevelsWorldThree[0].rightAwnser,
+          wrongAwnser: subLevelsWorldThree[0].wrongAwnser,
+          awnser: subLevelsWorldThree[0].awnser);
     }));
   }
 }
