@@ -1,4 +1,4 @@
-package com.example.game_template
+package com.aprendendo.seg.info.game
 
 import io.flutter.embedding.android.FlutterActivity
 
