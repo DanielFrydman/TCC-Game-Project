@@ -43,17 +43,20 @@ Future<void> main() async {
   // See lib/src/crashlytics/README.md for details.
 
   FirebaseCrashlytics? crashlytics;
-  if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
-    try {
-      WidgetsFlutterBinding.ensureInitialized();
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      crashlytics = FirebaseCrashlytics.instance;
-    } catch (e) {
-      debugPrint("Firebase couldn't be initialized: $e");
-    }
-  }
+  // if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+  //   try {
+  //     WidgetsFlutterBinding.ensureInitialized();
+  //     await Firebase.initializeApp(
+  //       options: DefaultFirebaseOptions.currentPlatform,
+  //     );
+  //     crashlytics = FirebaseCrashlytics.instance;
+  //   } catch (e) {
+  //     debugPrint("Firebase couldn't be initialized: $e");
+  //   }
+  // }
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   await guardWithCrashlytics(
     guardedMain,
