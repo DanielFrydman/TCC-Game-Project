@@ -14,8 +14,6 @@ import '../style/responsive_screen.dart';
 import 'custom_name_dialog.dart';
 import 'settings.dart';
 
-const _gap = SizedBox(height: 40);
-
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({
     Key? key,
@@ -32,9 +30,8 @@ class SettingsScreen extends StatelessWidget {
                 image: AssetImage(backgrounds[getBackgroundForDayTime()]),
                 fit: BoxFit.cover)),
         child: ResponsiveScreen(
-          squarishMainArea: ListView(
+          squarishMainArea: Column(
             children: [
-              _gap,
               Text(
                 'Configurações',
                 textAlign: TextAlign.center,
@@ -49,99 +46,107 @@ class SettingsScreen extends StatelessWidget {
                           blurRadius: 30)
                     ])),
               ),
-              _gap,
-              const _NameChangeLine(
-                'Nome',
-              ),
-              ValueListenableBuilder<bool>(
-                valueListenable: settings.soundsOn,
-                builder: (context, soundsOn, child) => _SettingsLine(
-                  'Efeitos Sonoros',
-                  soundsOn
-                      ? Image.asset('assets/images/buttons/sound_on.png',
-                          scale: 0.5)
-                      : Image.asset('assets/images/buttons/sound_off.png',
+              Expanded(
+                child: ListView(
+                  children: [
+                    const _NameChangeLine(
+                      'Nome',
+                    ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: settings.soundsOn,
+                      builder: (context, soundsOn, child) => _SettingsLine(
+                        'Efeitos Sonoros',
+                        soundsOn
+                            ? Image.asset('assets/images/buttons/sound_on.png',
+                                scale: 0.5)
+                            : Image.asset('assets/images/buttons/sound_off.png',
+                                scale: 0.5),
+                        onSelected: () => settings.toggleSoundsOn(),
+                      ),
+                    ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: settings.musicOn,
+                      builder: (context, musicOn, child) => _SettingsLine(
+                        'Música',
+                        musicOn
+                            ? Image.asset('assets/images/buttons/music_on.png',
+                                scale: 0.5)
+                            : Image.asset('assets/images/buttons/music_off.png',
+                                scale: 0.5),
+                        onSelected: () => settings.toggleMusicOn(),
+                      ),
+                    ),
+                    Consumer<InAppPurchaseController?>(
+                        builder: (context, inAppPurchase, child) {
+                      if (inAppPurchase == null) {
+                        // In-app purchases are not supported yet.
+                        // Go to lib/main.dart and uncomment the lines that create
+                        // the InAppPurchaseController.
+                        return const SizedBox.shrink();
+                      }
+
+                      Widget icon;
+                      VoidCallback? callback;
+                      if (inAppPurchase.adRemoval.active) {
+                        icon = const Icon(Icons.check);
+                      } else if (inAppPurchase.adRemoval.pending) {
+                        icon = const CircularProgressIndicator();
+                      } else {
+                        icon = const Icon(Icons.ad_units);
+                        callback = () {
+                          inAppPurchase.buy();
+                        };
+                      }
+                      return _SettingsLine(
+                        'Remover Ads',
+                        icon,
+                        onSelected: callback,
+                      );
+                    }),
+                    _SettingsLine(
+                      'Redefinir progresso',
+                      Image.asset('assets/images/buttons/restart.png',
                           scale: 0.5),
-                  onSelected: () => settings.toggleSoundsOn(),
+                      onSelected: () {
+                        context.read<PlayerProgress>().reset();
+
+                        final messenger = ScaffoldMessenger.of(context);
+                        messenger.showSnackBar(
+                          SnackBar(
+                              content: Text(
+                                  'O progresso do jogador foi redefinido.',
+                                  style: GoogleFonts.vt323(
+                                      textStyle: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w300)))),
+                        );
+                      },
+                    ),
+                    _SettingsLine(
+                      'Créditos',
+                      Image.asset('assets/images/buttons/credits.png',
+                          scale: 0.5),
+                      onSelected: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => _Credits()),
+                        );
+                      },
+                    ),
+                  ],
                 ),
               ),
-              ValueListenableBuilder<bool>(
-                valueListenable: settings.musicOn,
-                builder: (context, musicOn, child) => _SettingsLine(
-                  'Música',
-                  musicOn
-                      ? Image.asset('assets/images/buttons/music_on.png',
-                          scale: 0.5)
-                      : Image.asset('assets/images/buttons/music_off.png',
-                          scale: 0.5),
-                  onSelected: () => settings.toggleMusicOn(),
-                ),
-              ),
-              Consumer<InAppPurchaseController?>(
-                  builder: (context, inAppPurchase, child) {
-                if (inAppPurchase == null) {
-                  // In-app purchases are not supported yet.
-                  // Go to lib/main.dart and uncomment the lines that create
-                  // the InAppPurchaseController.
-                  return const SizedBox.shrink();
-                }
-
-                Widget icon;
-                VoidCallback? callback;
-                if (inAppPurchase.adRemoval.active) {
-                  icon = const Icon(Icons.check);
-                } else if (inAppPurchase.adRemoval.pending) {
-                  icon = const CircularProgressIndicator();
-                } else {
-                  icon = const Icon(Icons.ad_units);
-                  callback = () {
-                    inAppPurchase.buy();
-                  };
-                }
-                return _SettingsLine(
-                  'Remover Ads',
-                  icon,
-                  onSelected: callback,
-                );
-              }),
-              _SettingsLine(
-                'Redefinir progresso',
-                Image.asset('assets/images/buttons/restart.png', scale: 0.5),
-                onSelected: () {
-                  context.read<PlayerProgress>().reset();
-
-                  final messenger = ScaffoldMessenger.of(context);
-                  messenger.showSnackBar(
-                    SnackBar(
-                        content: Text('O progresso do jogador foi redefinido.',
-                            style: GoogleFonts.vt323(
-                                textStyle: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.w300)))),
-                  );
-                },
-              ),
-              _SettingsLine(
-                'Créditos',
-                Image.asset('assets/images/buttons/credits.png', scale: 0.5),
-                onSelected: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => _Credits()),
-                  );
-                },
-              ),
-              _gap,
               ElevatedButton(
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Text('Voltar',
-                    style: GoogleFonts.vt323(
+                  onPressed: () {
+                    GoRouter.of(context).go('/menu');
+                  },
+                  child: Text('Voltar'),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFff0000),
+                      textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w300))),
-              ),
-              _gap,
+                            fontSize: 30, fontWeight: FontWeight.w300),
+                      ))),
             ],
           ),
         ),
@@ -230,9 +235,8 @@ class _Credits extends StatelessWidget {
                 image: AssetImage(backgrounds[getBackgroundForDayTime()]),
                 fit: BoxFit.cover)),
         child: ResponsiveScreen(
-          squarishMainArea: ListView(
+          squarishMainArea: Column(
             children: [
-              _gap,
               Text(
                 'Créditos',
                 textAlign: TextAlign.center,
@@ -247,145 +251,157 @@ class _Credits extends StatelessWidget {
                           blurRadius: 30)
                     ])),
               ),
-              _gap,
-              InkResponse(
-                highlightShape: BoxShape.rectangle,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text('Sprites         - ',
-                              style: GoogleFonts.vt323(
-                                  textStyle: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w300))),
-                          GestureDetector(
-                            child: Text('https://limezu.itch.io/',
-                                style: GoogleFonts.vt323(
-                                    textStyle: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.pink,
-                                        decoration: TextDecoration.underline))),
-                            onTap: () async {
-                              var url = Uri.parse('https://limezu.itch.io/');
-                              if (await canLaunchUrl(url)) launchUrl(url);
-                            },
-                          ),
-                        ],
+              Expanded(
+                child: ListView(
+                  children: [
+                    InkResponse(
+                      highlightShape: BoxShape.rectangle,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text('Sprites         - ',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w300))),
+                                GestureDetector(
+                                  child: Text('https://limezu.itch.io/',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.pink,
+                                              decoration:
+                                                  TextDecoration.underline))),
+                                  onTap: () async {
+                                    var url =
+                                        Uri.parse('https://limezu.itch.io/');
+                                    if (await canLaunchUrl(url)) launchUrl(url);
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Música          - ',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w300))),
+                                GestureDetector(
+                                  child: Text(
+                                      'https://opengameart.org/users/zane-little-music',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.pink,
+                                              decoration:
+                                                  TextDecoration.underline))),
+                                  onTap: () async {
+                                    var url = Uri.parse(
+                                        'https://opengameart.org/users/zane-little-music');
+                                    if (await canLaunchUrl(url)) launchUrl(url);
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Planos de Fundo - ',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w300))),
+                                GestureDetector(
+                                  child: Text(
+                                      'https://digitalmoons.itch.io/pixel-skies-demo',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.pink,
+                                              decoration:
+                                                  TextDecoration.underline))),
+                                  onTap: () async {
+                                    var url = Uri.parse(
+                                        'https://digitalmoons.itch.io/pixel-skies-demo');
+                                    if (await canLaunchUrl(url)) launchUrl(url);
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Ícones          - ',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w300))),
+                                GestureDetector(
+                                  child: Text(
+                                      'https://blackdragon1727.itch.io/',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.pink,
+                                              decoration:
+                                                  TextDecoration.underline))),
+                                  onTap: () async {
+                                    var url = Uri.parse(
+                                        'https://blackdragon1727.itch.io/');
+                                    if (await canLaunchUrl(url)) launchUrl(url);
+                                  },
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Text('Alguns Efeitos  - ',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w300))),
+                                GestureDetector(
+                                  child: Text('https://nyknck.itch.io/',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w300,
+                                              color: Colors.pink,
+                                              decoration:
+                                                  TextDecoration.underline))),
+                                  onTap: () async {
+                                    var url =
+                                        Uri.parse('https://nyknck.itch.io/');
+                                    if (await canLaunchUrl(url)) launchUrl(url);
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text('Música          - ',
-                              style: GoogleFonts.vt323(
-                                  textStyle: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w300))),
-                          GestureDetector(
-                            child: Text(
-                                'https://opengameart.org/users/zane-little-music',
-                                style: GoogleFonts.vt323(
-                                    textStyle: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.pink,
-                                        decoration: TextDecoration.underline))),
-                            onTap: () async {
-                              var url = Uri.parse(
-                                  'https://opengameart.org/users/zane-little-music');
-                              if (await canLaunchUrl(url)) launchUrl(url);
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('Planos de Fundo - ',
-                              style: GoogleFonts.vt323(
-                                  textStyle: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w300))),
-                          GestureDetector(
-                            child: Text(
-                                'https://digitalmoons.itch.io/pixel-skies-demo',
-                                style: GoogleFonts.vt323(
-                                    textStyle: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.pink,
-                                        decoration: TextDecoration.underline))),
-                            onTap: () async {
-                              var url = Uri.parse(
-                                  'https://digitalmoons.itch.io/pixel-skies-demo');
-                              if (await canLaunchUrl(url)) launchUrl(url);
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('Ícones          - ',
-                              style: GoogleFonts.vt323(
-                                  textStyle: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w300))),
-                          GestureDetector(
-                            child: Text('https://blackdragon1727.itch.io/',
-                                style: GoogleFonts.vt323(
-                                    textStyle: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.pink,
-                                        decoration: TextDecoration.underline))),
-                            onTap: () async {
-                              var url =
-                                  Uri.parse('https://blackdragon1727.itch.io/');
-                              if (await canLaunchUrl(url)) launchUrl(url);
-                            },
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Text('Alguns Efeitos  - ',
-                              style: GoogleFonts.vt323(
-                                  textStyle: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w300))),
-                          GestureDetector(
-                            child: Text('https://nyknck.itch.io/',
-                                style: GoogleFonts.vt323(
-                                    textStyle: TextStyle(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.pink,
-                                        decoration: TextDecoration.underline))),
-                            onTap: () async {
-                              var url =
-                                  Uri.parse('https://nyknck.itch.io/');
-                              if (await canLaunchUrl(url)) launchUrl(url);
-                            },
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              _gap,
               ElevatedButton(
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Text('Voltar',
-                    style: GoogleFonts.vt323(
+                  onPressed: () {
+                    GoRouter.of(context).go('/menu');
+                  },
+                  child: Text('Voltar'),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFff0000),
+                      textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w300))),
-              ),
-              _gap,
+                            fontSize: 30, fontWeight: FontWeight.w300),
+                      ))),
             ],
           ),
         ),

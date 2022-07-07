@@ -10,7 +10,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:game_template/firebase_options.dart';
+import 'package:game_template/src/screens/signin_screen.dart';
+import 'package:game_template/src/screens/singup_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,6 @@ import 'src/app_lifecycle/app_lifecycle.dart';
 import 'src/audio/audio_controller.dart';
 import 'src/crashlytics/crashlytics.dart';
 import 'src/games_services/games_services.dart';
-import 'src/games_services/score.dart';
 import 'src/in_app_purchase/in_app_purchase.dart';
 import 'src/level_selection/level_selection_screen.dart';
 import 'src/level_selection/levels.dart';
@@ -33,10 +33,8 @@ import 'src/settings/persistence/local_storage_settings_persistence.dart';
 import 'src/settings/persistence/settings_persistence.dart';
 import 'src/settings/settings.dart';
 import 'src/settings/settings_screen.dart';
-import 'src/style/my_transition.dart';
 import 'src/style/palette.dart';
 import 'src/style/snack_bar.dart';
-import 'src/win_game/win_game_screen.dart';
 
 Future<void> main() async {
   // Uncomment the following lines to enable Firebase Crashlytics.
@@ -84,9 +82,8 @@ void guardedMain() {
   );
 
   final style = SystemUiOverlayStyle(
-    systemNavigationBarColor: Colors.transparent,
-    systemNavigationBarDividerColor: Colors.transparent
-  );
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent);
 
   SystemChrome.setSystemUIOverlayStyle(style);
 
@@ -119,18 +116,16 @@ void guardedMain() {
   //   inAppPurchaseController.restorePurchases();
   // }
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.top]);
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
+      overlays: [SystemUiOverlay.top]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeRight])
-      .then((value) => runApp(
-            MyApp(
-              settingsPersistence: LocalStorageSettingsPersistence(),
-              playerProgressPersistence:
-                  LocalStoragePlayerProgressPersistence(),
-              inAppPurchaseController: inAppPurchaseController,
-              adsController: adsController,
-              gamesServicesController: gamesServicesController,
-            ),
-          ));
+      .then((value) => runApp(MyApp(
+            settingsPersistence: LocalStorageSettingsPersistence(),
+            playerProgressPersistence: LocalStoragePlayerProgressPersistence(),
+            inAppPurchaseController: inAppPurchaseController,
+            adsController: adsController,
+            gamesServicesController: gamesServicesController,
+          )));
 }
 
 Logger _log = Logger('main.dart');
@@ -139,55 +134,38 @@ class MyApp extends StatelessWidget {
   static final _router = GoRouter(
     routes: [
       GoRoute(
-          path: '/',
-          builder: (context, state) =>
-              const MainMenuScreen(key: Key('main menu')),
-          routes: [
-            GoRoute(
-                path: 'play',
-                pageBuilder: (context, state) => buildMyTransition(
-                      child: const LevelSelectionScreen(
-                          key: Key('level selection')),
-                      color: context.watch<Palette>().backgroundLevelSelection,
-                    ),
-                routes: [
-                  GoRoute(
-                    path: 'session/:level',
-                    pageBuilder: (context, state) {
-                      final levelNumber = int.parse(state.params['level']!);
-                      final level = gameLevels
-                          .singleWhere((e) => e.number == levelNumber);
-                      return buildMyTransition(
-                        child: PlaySessionScreen(
-                          level,
-                          key: const Key('play session'),
-                        ),
-                        color: context.watch<Palette>().backgroundPlaySession,
-                      );
-                    },
-                  ),
-                  GoRoute(
-                    path: 'won',
-                    pageBuilder: (context, state) {
-                      final map = state.extra! as Map<String, dynamic>;
-                      final score = map['score'] as Score;
-
-                      return buildMyTransition(
-                        child: WinGameScreen(
-                          score: score,
-                          key: const Key('win game'),
-                        ),
-                        color: context.watch<Palette>().backgroundPlaySession,
-                      );
-                    },
-                  )
-                ]),
-            GoRoute(
-              path: 'settings',
-              builder: (context, state) =>
-                  const SettingsScreen(key: Key('settings')),
-            ),
-          ]),
+        path: '/',
+        builder: (context, state) => const SignInScreen(key: Key('sign in')),
+        routes: [
+          GoRoute(
+            path: 'signUp',
+            builder: (context, state) =>
+                const SignUpScreen(key: Key('sign up')),
+          ),
+          GoRoute(
+            path: 'menu',
+            builder: (context, state) =>
+                const MainMenuScreen(key: Key('main menu')),
+          ),
+          GoRoute(
+            path: 'menu/play',
+            builder: (context, state) =>
+                const LevelSelectionScreen(key: Key('level selection')),
+          ),
+          GoRoute(
+              path: 'menu/play/session/:level',
+              builder: (context, state) => PlaySessionScreen(
+                    gameLevels.singleWhere(
+                        (e) => e.number == int.parse(state.params['level']!)),
+                    key: const Key('play session'),
+                  )),
+          GoRoute(
+            path: 'menu/settings',
+            builder: (context, state) =>
+                const SettingsScreen(key: Key('settings')),
+          ),
+        ],
+      )
     ],
   );
 
@@ -208,7 +186,7 @@ class MyApp extends StatelessWidget {
     required this.adsController,
     required this.gamesServicesController,
     Key? key,
-}) : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

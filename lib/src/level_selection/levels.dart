@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bonfire/bonfire.dart';
 
 // Copyright 2022, the Flutter project authors. Please see the AUTHORS file

@@ -34,7 +34,7 @@ class MainMenuScreen extends StatelessWidget {
               child: Transform.rotate(
                 angle: -0.1,
                 child: Text(
-                  'Aprendendo Segurança da Informação!',
+                  'Aprendendo Segurança\nda Informação!',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.vt323(
                     textStyle: TextStyle(
@@ -55,56 +55,73 @@ class MainMenuScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    audioController.playSfx(SfxType.buttonTap);
-                    GoRouter.of(context).go('/play');
-                  },
-                  child: Text('Jogar',
-                      style: GoogleFonts.vt323(
-                        textStyle: TextStyle(
-                            fontSize: 30,
-                            height: 1,
-                            fontWeight: FontWeight.w500),
-                      )),
-                ),
-                if (gamesServicesController != null) ...[
-                  _hideUntilReady(
-                    ready: gamesServicesController.signedIn,
-                    child: ElevatedButton(
-                      onPressed: () =>
-                          gamesServicesController.showAchievements(),
-                      child: Text('Conquistas',
-                          style: GoogleFonts.vt323(
-                              textStyle: TextStyle(
-                                  fontSize: 30,
-                                  height: 1,
-                                  fontWeight: FontWeight.w500))),
-                    ),
-                  ),
-                  _hideUntilReady(
-                    ready: gamesServicesController.signedIn,
-                    child: ElevatedButton(
-                      onPressed: () =>
-                          gamesServicesController.showLeaderboard(),
-                      child: Text('Placar de Líderes',
-                          style: GoogleFonts.vt323(
-                              textStyle: TextStyle(
-                                  fontSize: 30,
-                                  height: 1,
-                                  fontWeight: FontWeight.w500))),
-                    ),
-                  ),
-                ],
-                ElevatedButton(
-                    onPressed: () => GoRouter.of(context).go('/settings'),
+                    onPressed: () {
+                      audioController.playSfx(SfxType.buttonTap);
+                      GoRouter.of(context).go('/menu/play');
+                    },
                     child: Text(
-                      'Configurações',
-                      style: GoogleFonts.vt323(
+                      'Jogar',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFff0000),
+                        textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
                               fontSize: 30,
                               height: 1,
-                              fontWeight: FontWeight.w500)),
-                    )),
+                              fontWeight: FontWeight.w500),
+                        ))),
+                if (gamesServicesController != null) ...[
+                  _hideUntilReady(
+                      ready: gamesServicesController.signedIn,
+                      child: ElevatedButton(
+                          onPressed: () =>
+                              gamesServicesController.showAchievements(),
+                          child: Text('Conquistas'),
+                          style: ElevatedButton.styleFrom(
+                              primary: Color(0xFFff0000),
+                              textStyle: GoogleFonts.vt323(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    height: 1,
+                                    fontWeight: FontWeight.w500),
+                              )))),
+                  _hideUntilReady(
+                      ready: gamesServicesController.signedIn,
+                      child: ElevatedButton(
+                          onPressed: () =>
+                              gamesServicesController.showLeaderboard(),
+                          child: Text('Placar de Líderes'),
+                          style: ElevatedButton.styleFrom(
+                              primary: Color(0xFFff0000),
+                              textStyle: GoogleFonts.vt323(
+                                textStyle: TextStyle(
+                                    fontSize: 30,
+                                    height: 1,
+                                    fontWeight: FontWeight.w500),
+                              )))),
+                ],
+                ElevatedButton(
+                    onPressed: () => GoRouter.of(context).go('/menu/settings'),
+                    child: Text('Configurações'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFff0000),
+                        textStyle: GoogleFonts.vt323(
+                          textStyle: TextStyle(
+                              fontSize: 30,
+                              height: 1,
+                              fontWeight: FontWeight.w500),
+                        ))),
+                ElevatedButton(
+                    onPressed: () => GoRouter.of(context).go('/'),
+                    child: Text('Sair'),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xFFff0000),
+                        textStyle: GoogleFonts.vt323(
+                          textStyle: TextStyle(
+                              fontSize: 30,
+                              height: 1,
+                              fontWeight: FontWeight.w500),
+                        ))),
               ],
             ),
           ],

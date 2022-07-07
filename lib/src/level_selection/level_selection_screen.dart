@@ -35,7 +35,7 @@ class LevelSelectionScreen extends StatelessWidget {
           squarishMainArea: Column(
             children: [
               Padding(
-                padding: EdgeInsets.all(16),
+                padding: EdgeInsets.only(left: 16, right: 16),
                 child: Center(
                   child: Text(
                     'Selecione o nível',
@@ -65,7 +65,7 @@ class LevelSelectionScreen extends StatelessWidget {
                           audioController.playSfx(SfxType.buttonTap);
 
                           GoRouter.of(context)
-                              .go('/play/session/${level.number}');
+                              .go('/menu/play/session/${level.number}');
                         },
                         leading: Text(level.number.toString(),
                             style: GoogleFonts.vt323(
@@ -82,14 +82,16 @@ class LevelSelectionScreen extends StatelessWidget {
                 ),
               ),
               ElevatedButton(
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-                child: Text('Voltar',
-                    style: GoogleFonts.vt323(
+                  onPressed: () {
+                    GoRouter.of(context).go('/menu');
+                  },
+                  child: Text('Voltar'),
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFff0000),
+                      textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w300))),
-              ),
+                            fontSize: 30, fontWeight: FontWeight.w300),
+                      )))
             ],
           ),
         ),

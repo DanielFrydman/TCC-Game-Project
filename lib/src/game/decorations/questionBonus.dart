@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
