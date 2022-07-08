@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/screens/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
@@ -41,6 +42,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: [
                   Column(
                     children: [
+                      _verticalGap,
+                      _verticalGap,
                       SizedBox(
                         width: 400,
                         height: 50,
@@ -73,9 +76,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }, 190.0),
                             _horizontalGap,
                             usableButton(context, 'CRIAR CONTA', () {
-                              GoRouter.of(context).go('/menu');
+                              FirebaseAuth.instance
+                                  .createUserWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) {
+                                print("Nova conta criada com sucesso.");
+                                GoRouter.of(context).go('/menu');
+                              }).onError((error, stackTrace) {
+                                print("Error ${error.toString()}");
+                              });
                             }, 190.0),
-                          ])
+                          ]),
+                          _verticalGap,
                     ],
                   ),
                 ],

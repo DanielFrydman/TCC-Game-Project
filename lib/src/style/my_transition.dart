@@ -53,7 +53,7 @@ class _MyRevealState extends State<_MyReveal> {
 
   bool _finished = false;
 
-  final _tween = Tween(begin: const Offset(0, -1), end: Offset.zero);
+  // final _tween = Tween(begin: const Offset(0, -1), end: Offset.zero);
 
   @override
   void initState() {

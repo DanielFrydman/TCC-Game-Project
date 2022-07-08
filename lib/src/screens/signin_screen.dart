@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/screens/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         fit: BoxFit.cover))),
             SingleChildScrollView(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Center(
                     // padding: new EdgeInsets.only(top: 50),
@@ -48,7 +49,7 @@ class _SignInScreenState extends State<SignInScreen> {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: 55,
+                              fontSize: responsiveFontSize(context),
                               height: 1,
                               fontWeight: FontWeight.w600,
                               shadows: <Shadow>[
@@ -61,27 +62,39 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 50),
                   Column(
                     children: [
+                      _verticalGap,
+                      _verticalGap,
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        height: 40,
+                        width: responsiveSizeOfFields(context),
+                        height: 45,
                         child: reusableTextField("Email", Icons.account_circle,
                             false, emailController),
                       ),
                       _verticalGap,
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        height: 40,
+                        width: responsiveSizeOfFields(context),
+                        height: 45,
                         child: reusableTextField(
                             "Senha", Icons.lock, true, passwordController),
                       ),
                       _verticalGap,
                       usableButton(context, 'Entrar', () {
-                        GoRouter.of(context).go('/menu');
-                      }, MediaQuery.of(context).size.width / 2.5),
+                        FirebaseAuth.instance.signInWithEmailAndPassword(
+                            email: emailController.text,
+                            password: passwordController.text).then((value) {
+                              print('logando');
+                              GoRouter.of(context).go('/menu');
+                            }).onError((error, stackTrace) {
+                              print('foi nao');
+                            });
+
+                        
+                      }, responsiveSizeOfFields(context)),
                       _verticalHalfGap,
-                      signUpOption()
+                      signUpOption(responsiveSignUp(context))
                     ],
                   ),
                 ],
@@ -93,7 +106,7 @@ class _SignInScreenState extends State<SignInScreen> {
     );
   }
 
-  Row signUpOption() {
+  Row signUpOption(fontSize) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -101,7 +114,7 @@ class _SignInScreenState extends State<SignInScreen> {
           "Não tem conta? ",
           style: GoogleFonts.vt323(
             textStyle: TextStyle(
-              fontSize: 20,
+              fontSize: fontSize,
               color: Colors.black54,
               fontWeight: FontWeight.normal,
             ),
@@ -115,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
               "Criar conta",
               style: GoogleFonts.vt323(
                 textStyle: TextStyle(
-                  fontSize: 20,
+                  fontSize: fontSize,
                   color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
@@ -145,3 +158,41 @@ const backgrounds = [
   'assets/images/main_menu_backgrounds/night.png',
   'assets/images/main_menu_backgrounds/night_dawn.png'
 ];
+
+double responsiveSizeOfFields(context) {
+  final width = MediaQuery.of(context).size.width;
+
+  if (width > 1600) {
+    return 500;
+  }
+  
+  return width / 2.5;
+}
+
+double responsiveFontSize(context) {
+  final width = MediaQuery.of(context).size.width;
+
+  if (width > 1200) {
+    return 80;
+  } else if (width > 1000) {
+    return 75;
+  } else if (width > 800) {
+    return 70;
+  } else if (width > 600) {
+    return 60;
+  }
+  
+  return 55;
+}
+
+double responsiveSignUp(context) {
+  final width = MediaQuery.of(context).size.width;
+
+  if (width > 1200) {
+    return 30;
+  } else if (width > 1000) {
+    return 25;
+  }
+  
+  return 20;
+}

@@ -3,6 +3,7 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:game_template/src/screens/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.vt323(
                     textStyle: TextStyle(
-                        fontSize: 80,
+                        fontSize: responsiveFontSize(context),
                         fontWeight: FontWeight.w300,
                         shadows: <Shadow>[
                       Shadow(
@@ -145,7 +146,7 @@ class SettingsScreen extends StatelessWidget {
                       primary: Color(0xFFff0000),
                       textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w300),
+                            fontSize: responsiveFontSize(context)/2, fontWeight: FontWeight.w300),
                       ))),
             ],
           ),
@@ -242,7 +243,7 @@ class _Credits extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: GoogleFonts.vt323(
                     textStyle: TextStyle(
-                        fontSize: 80,
+                        fontSize: responsiveFontSize(context),
                         fontWeight: FontWeight.w300,
                         shadows: <Shadow>[
                       Shadow(
@@ -266,13 +267,13 @@ class _Credits extends StatelessWidget {
                                 Text('Sprites         - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: 28,
+                                            fontSize: responsiveFontSize(context)/2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text('https://limezu.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: responsiveFontSize(context)/2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -290,14 +291,14 @@ class _Credits extends StatelessWidget {
                                 Text('Música          - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: 28,
+                                            fontSize: responsiveFontSize(context)/2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://opengameart.org/users/zane-little-music',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: responsiveFontSize(context)/2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -315,14 +316,14 @@ class _Credits extends StatelessWidget {
                                 Text('Planos de Fundo - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: 28,
+                                            fontSize: responsiveFontSize(context)/2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://digitalmoons.itch.io/pixel-skies-demo',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: responsiveFontSize(context)/2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -340,14 +341,14 @@ class _Credits extends StatelessWidget {
                                 Text('Ícones          - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: 28,
+                                            fontSize: responsiveFontSize(context)/2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://blackdragon1727.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: responsiveFontSize(context)/2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -365,13 +366,13 @@ class _Credits extends StatelessWidget {
                                 Text('Alguns Efeitos  - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: 28,
+                                            fontSize: responsiveFontSize(context)/2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text('https://nyknck.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: 28,
+                                              fontSize: responsiveFontSize(context)/2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -400,7 +401,7 @@ class _Credits extends StatelessWidget {
                       primary: Color(0xFFff0000),
                       textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.w300),
+                            fontSize: responsiveFontSize(context)/2, fontWeight: FontWeight.w300),
                       ))),
             ],
           ),

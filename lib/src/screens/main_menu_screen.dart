@@ -2,7 +2,9 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/screens/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +40,7 @@ class MainMenuScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.vt323(
                     textStyle: TextStyle(
-                        fontSize: 60,
+                        fontSize: responsiveFontSize(context),
                         height: 1,
                         fontWeight: FontWeight.w600,
                         shadows: <Shadow>[
@@ -66,7 +68,7 @@ class MainMenuScreen extends StatelessWidget {
                         primary: Color(0xFFff0000),
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: 30,
+                              fontSize: responsiveFontSize(context)/2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
@@ -81,7 +83,7 @@ class MainMenuScreen extends StatelessWidget {
                               primary: Color(0xFFff0000),
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
-                                    fontSize: 30,
+                                    fontSize: responsiveFontSize(context)/2,
                                     height: 1,
                                     fontWeight: FontWeight.w500),
                               )))),
@@ -95,7 +97,7 @@ class MainMenuScreen extends StatelessWidget {
                               primary: Color(0xFFff0000),
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
-                                    fontSize: 30,
+                                    fontSize: responsiveFontSize(context)/2,
                                     height: 1,
                                     fontWeight: FontWeight.w500),
                               )))),
@@ -107,18 +109,23 @@ class MainMenuScreen extends StatelessWidget {
                         primary: Color(0xFFff0000),
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: 30,
+                              fontSize: responsiveFontSize(context)/2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
                 ElevatedButton(
-                    onPressed: () => GoRouter.of(context).go('/'),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut().then((value) {
+                        print("saindo");
+                        GoRouter.of(context).go('/');
+                      });
+                    },
                     child: Text('Sair'),
                     style: ElevatedButton.styleFrom(
                         primary: Color(0xFFff0000),
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: 30,
+                              fontSize: responsiveFontSize(context)/2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),

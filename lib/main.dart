@@ -2,14 +2,12 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game_template/firebase_options.dart';
 import 'package:game_template/src/screens/signin_screen.dart';
 import 'package:game_template/src/screens/singup_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +22,7 @@ import 'src/games_services/games_services.dart';
 import 'src/in_app_purchase/in_app_purchase.dart';
 import 'src/level_selection/level_selection_screen.dart';
 import 'src/level_selection/levels.dart';
-import 'src/main_menu/main_menu_screen.dart';
+import 'src/screens/main_menu_screen.dart';
 import 'src/play_session/play_session_screen.dart';
 import 'src/player_progress/persistence/local_storage_player_progress_persistence.dart';
 import 'src/player_progress/persistence/player_progress_persistence.dart';
@@ -54,7 +52,9 @@ Future<void> main() async {
   // }
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform
+  );
 
   await guardWithCrashlytics(
     guardedMain,
@@ -73,8 +73,6 @@ void guardedMain() {
         '${record.loggerName}: '
         '${record.message}');
   });
-
-  WidgetsFlutterBinding.ensureInitialized();
 
   _log.info('Going full screen');
   SystemChrome.setEnabledSystemUIMode(

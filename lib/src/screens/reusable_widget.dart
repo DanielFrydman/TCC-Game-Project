@@ -9,6 +9,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
+    cursorHeight: 25,
     style: GoogleFonts.vt323(
         textStyle: TextStyle(fontSize: 30, fontWeight: FontWeight.w300),
         color: Colors.white.withOpacity(0.9),
@@ -34,7 +35,7 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
 Container usableButton(BuildContext context, text, Function onTap, width) {
   return Container(
     width: width,
-    height: 35,
+    height: 40,
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
     child: ElevatedButton(
       onPressed: () {
@@ -62,4 +63,20 @@ Container usableButton(BuildContext context, text, Function onTap, width) {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)))),
     ),
   );
+}
+
+double responsiveFontSize(context) {
+  final width = MediaQuery.of(context).size.width;
+  final height = MediaQuery.of(context).size.height;
+
+
+  if (width < 1000 && height < 500) {
+    return 60;
+  } else if (width < 1200 && height < 600) {
+    return 70;
+  } else if (width < 1400 && height < 800) {
+    return 75;
+  } 
+  
+  return 100;
 }

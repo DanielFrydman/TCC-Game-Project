@@ -47,30 +47,31 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBXD3_kgOtvYLUgQEFpe9o8Sc0yTqKM29M',
-    appId: '1:53475165465:web:cb50a28b57a9e70ca3f188',
-    messagingSenderId: '53475165465',
-    projectId: 'aprendendoseginfo',
-    authDomain: 'aprendendoseginfo.firebaseapp.com',
-    storageBucket: 'aprendendoseginfo.appspot.com',
-    measurementId: 'G-C5VCV1HBTK',
+    apiKey: 'AIzaSyC13hRvmfYzBAsv2JNvE1VwjdWPfTtjQgY',
+    appId: '1:213460055585:web:35729efa397ee3c5bfd560',
+    messagingSenderId: '213460055585',
+    projectId: 'learninginformationsecurity',
+    authDomain: 'learninginformationsecurity.firebaseapp.com',
+    storageBucket: 'learninginformationsecurity.appspot.com',
+    measurementId: 'G-PH4DQZBTP8',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBOR-Y9boCGqXI11iMPK1M8uzrTJs76BqM',
-    appId: '1:53475165465:android:a44863fda6b5838aa3f188',
-    messagingSenderId: '53475165465',
-    projectId: 'aprendendoseginfo',
-    storageBucket: 'aprendendoseginfo.appspot.com',
+    apiKey: 'AIzaSyCzMq-HM3E80JbemAKjnF3Tgqq2ArX3pCc',
+    appId: '1:213460055585:android:66d17b91644274aabfd560',
+    messagingSenderId: '213460055585',
+    projectId: 'learninginformationsecurity',
+    storageBucket: 'learninginformationsecurity.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyB6un8NtAdAtis7JbWOHbOBSeb7KwNsTRw',
-    appId: '1:53475165465:ios:d6c05e7c3d31d479a3f188',
-    messagingSenderId: '53475165465',
-    projectId: 'aprendendoseginfo',
-    storageBucket: 'aprendendoseginfo.appspot.com',
-    iosClientId: '53475165465-89h2vrhartikih2aspe5gr3phj7ctc14.apps.googleusercontent.com',
+    apiKey: 'AIzaSyCtM-ZAJIVnmb-H-REDYTenLUqEHW46H24',
+    appId: '1:213460055585:ios:bb527ccffec01ab1bfd560',
+    messagingSenderId: '213460055585',
+    projectId: 'learninginformationsecurity',
+    storageBucket: 'learninginformationsecurity.appspot.com',
+    androidClientId: '213460055585-rar3utet5f8urqn3usghpees89a7ac7o.apps.googleusercontent.com',
+    iosClientId: '213460055585-8j5eaiv8bjrrdkqrsl71formdb6pf432.apps.googleusercontent.com',
     iosBundleId: 'com.example.gameTemplate',
   );
 }
