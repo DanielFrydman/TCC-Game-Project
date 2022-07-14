@@ -7,8 +7,9 @@ import 'package:game_template/src/level_selection/levels.dart';
 
 class SecondNpcOfficeUpRight extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  SecondNpcOfficeUpRight(Vector2 position)
+  SecondNpcOfficeUpRight(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -59,9 +60,13 @@ class SecondNpcOfficeUpRight extends GameDecoration {
           ),
           Say(
             text: [
+              const TextSpan(text: 'É... você mesmo '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
               const TextSpan(
                   text:
-                      'É... você mesmo! Eu recebi um e-mail corporativo solicitando a atualização da minha senha para manter os meus acessos ao sistemas corporativos. Sabe de alguma coisa sobre isso?'),
+                      '! Eu recebi um e-mail corporativo solicitando a atualização da minha senha para manter os meus acessos ao sistemas corporativos. Sabe de alguma coisa sobre isso?'),
             ],
             person: SizedBox(
               height: 100,
@@ -128,9 +133,7 @@ class SecondNpcOfficeUpRight extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(
-                  text:
-                      'Estou achando estranho...'),
+              const TextSpan(text: 'Estou achando estranho...'),
             ],
             person: SizedBox(
               height: 100,
@@ -141,9 +144,7 @@ class SecondNpcOfficeUpRight extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(
-                  text:
-                      'Vamos clicar!'),
+              const TextSpan(text: 'Vamos clicar!'),
             ],
             person: SizedBox(
               height: 100,
@@ -176,7 +177,8 @@ class SecondNpcOfficeUpRight extends GameDecoration {
           awnser: subLevelsWorldFive[0].awnser,
           rightAwnserBonus: subLevelsWorldFive[0].rightAwnserBonus,
           bonusAwnser: subLevelsWorldFive[0].bonusAwnser,
-          bonusOption: subLevelsWorldFive[0].bonusOption);
+          bonusOption: subLevelsWorldFive[0].bonusOption,
+          herosName: subLevelsWorldFive[0].herosName);
     }));
   }
 }

@@ -4,26 +4,39 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
-///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  static FirebaseOptions currentPlatform(config) {
     if (kIsWeb) {
-      return web;
+      return FirebaseOptions(
+        apiKey: config['WEB_API_KEY'],
+        appId: config['WEB_APP_ID'],
+        messagingSenderId: config['MESSAGING_SENDER_ID'],
+        projectId: config['PROJECT_ID'],
+        authDomain: config['WEB_AUTH_DOMAIN'],
+        storageBucket: config['STORAGE_BUCKET'],
+        measurementId: config['WEB_MEASUREMENT_ID']
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        return FirebaseOptions(
+          apiKey: config['ANDROID_API_KEY'],
+          appId: config['ANDROID_APP_ID'],
+          messagingSenderId: config['MESSAGING_SENDER_ID'],
+          projectId: config['PROJECT_ID'],
+          storageBucket: config['STORAGE_BUCKET']
+        );
       case TargetPlatform.iOS:
-        return ios;
+        return FirebaseOptions(
+          apiKey: config['IOS_API_KEY'],
+          appId: config['IOS_APP_ID'],
+          messagingSenderId: config['MESSAGING_SENDER_ID'],
+          projectId: config['PROJECT_ID'],
+          storageBucket: config['STORAGE_BUCKET'],
+          androidClientId: config['IOS_ANDROID_CLIENT_ID'],
+          iosClientId: config['IOS_CLIENT_ID'],
+          iosBundleId: config['IOS_BUNDLE_ID']
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -45,33 +58,4 @@ class DefaultFirebaseOptions {
         );
     }
   }
-
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyC13hRvmfYzBAsv2JNvE1VwjdWPfTtjQgY',
-    appId: '1:213460055585:web:35729efa397ee3c5bfd560',
-    messagingSenderId: '213460055585',
-    projectId: 'learninginformationsecurity',
-    authDomain: 'learninginformationsecurity.firebaseapp.com',
-    storageBucket: 'learninginformationsecurity.appspot.com',
-    measurementId: 'G-PH4DQZBTP8',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCzMq-HM3E80JbemAKjnF3Tgqq2ArX3pCc',
-    appId: '1:213460055585:android:66d17b91644274aabfd560',
-    messagingSenderId: '213460055585',
-    projectId: 'learninginformationsecurity',
-    storageBucket: 'learninginformationsecurity.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCtM-ZAJIVnmb-H-REDYTenLUqEHW46H24',
-    appId: '1:213460055585:ios:bb527ccffec01ab1bfd560',
-    messagingSenderId: '213460055585',
-    projectId: 'learninginformationsecurity',
-    storageBucket: 'learninginformationsecurity.appspot.com',
-    androidClientId: '213460055585-rar3utet5f8urqn3usghpees89a7ac7o.apps.googleusercontent.com',
-    iosClientId: '213460055585-8j5eaiv8bjrrdkqrsl71formdb6pf432.apps.googleusercontent.com',
-    iosBundleId: 'com.example.gameTemplate',
-  );
 }

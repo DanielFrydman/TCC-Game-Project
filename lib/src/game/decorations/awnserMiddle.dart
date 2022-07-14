@@ -13,9 +13,10 @@ class AwnserMiddle extends SimpleEnemy {
   final int world;
   final String rightAwnserBonus;
   final int bonusAwnser;
+  final String herosName;
 
   AwnserMiddle(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser,
-      this.awnser, this.rightAwnserBonus, this.bonusAwnser)
+      this.awnser, this.rightAwnserBonus, this.bonusAwnser, this.herosName)
       : super(
             position: position,
             size: Vector2(45, 28),
@@ -53,7 +54,13 @@ class AwnserMiddle extends SimpleEnemy {
     gameRef.camera.moveToTargetAnimated(first, zoom: 2.2, finish: () {
       TalkDialog.show(context, [
         Say(
-            text: [TextSpan(text: 'Caramba!')],
+            text: [
+              const TextSpan(text: 'Caramba '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: '!')
+            ],
             person: SizedBox(
               height: 100,
               width: 100,
@@ -92,7 +99,13 @@ class AwnserMiddle extends SimpleEnemy {
     gameRef.camera.moveToTargetAnimated(first, zoom: 2.2, finish: () {
       TalkDialog.show(context, [
         Say(
-            text: [TextSpan(text: 'Muito bom hein!')],
+            text: [
+              const TextSpan(text: 'Muito bom hein '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: '!')
+            ],
             person: SizedBox(
               height: 100,
               width: 100,
@@ -131,7 +144,13 @@ class AwnserMiddle extends SimpleEnemy {
     gameRef.camera.moveToTargetAnimated(first, zoom: 2.2, finish: () {
       TalkDialog.show(context, [
         Say(
-            text: [TextSpan(text: 'Poxa... que pena...')],
+            text: [
+              const TextSpan(text: 'Poxa '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: '... que pena...')
+            ],
             person: SizedBox(
               height: 100,
               width: 100,
@@ -169,6 +188,6 @@ class AwnserMiddle extends SimpleEnemy {
   void _goNextStage() {
     final playerProgress = context.read<PlayerProgress>();
     playerProgress.setLevelReached(this.world);
-    GoRouter.of(context).pop();
+    GoRouter.of(context).go('/menu/play');
   }
 }

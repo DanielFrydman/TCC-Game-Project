@@ -36,6 +36,7 @@ class Game extends StatefulWidget {
   final int bonusAwnser;
   final String rightAwnserBonus;
   final String bonusOption;
+  final String herosName;
 
   Game(
       {Key? key,
@@ -50,7 +51,8 @@ class Game extends StatefulWidget {
       this.direction = Direction.up,
       this.rightAwnserBonus = "",
       this.bonusAwnser = 0,
-      this.bonusOption = ""})
+      this.bonusOption = "",
+      this.herosName = ""})
       : super(key: key);
 
   @override
@@ -66,7 +68,8 @@ class Game extends StatefulWidget {
       this.direction,
       this.rightAwnserBonus,
       this.bonusAwnser,
-      this.bonusOption);
+      this.bonusOption,
+      this.herosName);
 }
 
 class _GameState extends State<Game> {
@@ -83,6 +86,7 @@ class _GameState extends State<Game> {
   final int bonusAwnser;
   final String rightAwnserBonus;
   final String bonusOption;
+  final String herosName;
 
   _GameState(
       this.world,
@@ -96,7 +100,8 @@ class _GameState extends State<Game> {
       this.direction,
       this.rightAwnserBonus,
       this.bonusAwnser,
-      this.bonusOption);
+      this.bonusOption,
+      this.herosName);
 
   @override
   Widget build(BuildContext context) {
@@ -113,9 +118,10 @@ class _GameState extends State<Game> {
           ]),
       map: TiledWorldMap(this.map, objectsBuilder: {
         'secretary': (properties) => Secretary(properties.position),
-        'totem': (properties) => Totem(properties.position),
+        'totem': (properties) => Totem(properties.position, this.herosName),
         'receptionStairs': (properties) => ReceptionStairs(properties.position),
-        'auditoriumNpc': (properties) => AuditoriumNpc(properties.position),
+        'auditoriumNpc': (properties) =>
+            AuditoriumNpc(properties.position, this.herosName),
         'candle': (properties) => Candle(properties.position),
         'areYouSure': (properties) => AreYouSure(properties.position),
         'question': (properties) =>
@@ -127,7 +133,8 @@ class _GameState extends State<Game> {
             this.wrongAwnser,
             this.awnser,
             this.rightAwnserBonus,
-            this.bonusAwnser),
+            this.bonusAwnser,
+            this.herosName),
         'awnserRight': (properties) => AwnserRight(
             properties.position,
             this.world,
@@ -135,25 +142,28 @@ class _GameState extends State<Game> {
             this.wrongAwnser,
             this.awnser,
             this.rightAwnserBonus,
-            this.bonusAwnser),
-        'firstNpcClothes': (properties) => FirstNpcClothes(properties.position),
+            this.bonusAwnser,
+            this.herosName),
+        'firstNpcClothes': (properties) =>
+            FirstNpcClothes(properties.position, this.herosName),
         'secondNpcClothes': (properties) =>
             SecondNpcClothes(properties.position),
-        'thirdNpcClothes': (properties) => ThirdNpcClothes(properties.position),
+        'thirdNpcClothes': (properties) =>
+            ThirdNpcClothes(properties.position, this.herosName),
         'firstNpcOfficeDown': (properties) =>
-            FirstNpcOfficeDown(properties.position),
+            FirstNpcOfficeDown(properties.position, this.herosName),
         'secondNpcOfficeDown': (properties) =>
-            SecondNpcOfficeDown(properties.position),
+            SecondNpcOfficeDown(properties.position, this.herosName),
         'thirdNpcOfficeDown': (properties) =>
             ThirdNpcOfficeDown(properties.position),
         'firstNpcOfficeUpLeft': (properties) =>
-            FirstNpcOfficeUpLeft(properties.position),
+            FirstNpcOfficeUpLeft(properties.position, this.herosName),
         'secondNpcOfficeUpLeft': (properties) =>
-            SecondNpcOfficeUpLeft(properties.position),
+            SecondNpcOfficeUpLeft(properties.position, this.herosName),
         'firstNpcOfficeUpRight': (properties) =>
             FirstNpcOfficeUpRight(properties.position),
         'secondNpcOfficeUpRight': (properties) =>
-            SecondNpcOfficeUpRight(properties.position),
+            SecondNpcOfficeUpRight(properties.position, this.herosName),
         'awnserMiddle': (properties) => AwnserMiddle(
             properties.position,
             this.world,
@@ -161,7 +171,8 @@ class _GameState extends State<Game> {
             this.wrongAwnser,
             this.awnser,
             this.rightAwnserBonus,
-            this.bonusAwnser),
+            this.bonusAwnser,
+            this.herosName),
         'questionBonus': (properties) =>
             QuestionBonus(properties.position, this.question, this.bonusOption),
       }),

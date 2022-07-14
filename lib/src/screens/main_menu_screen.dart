@@ -4,7 +4,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:game_template/src/screens/reusable_widget.dart';
+import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -116,7 +116,6 @@ class MainMenuScreen extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       FirebaseAuth.instance.signOut().then((value) {
-                        print("saindo");
                         GoRouter.of(context).go('/');
                       });
                     },
@@ -160,23 +159,3 @@ class MainMenuScreen extends StatelessWidget {
     );
   }
 }
-
-int getBackgroundForDayTime() {
-  DateTime dateTime = DateTime.now();
-  if (dateTime.hour >= 3 && dateTime.hour < 6) {
-    return 0;
-  } else if (dateTime.hour >= 6 && dateTime.hour < 18) {
-    return 1;
-  } else if (dateTime.hour >= 18 && dateTime.hour < 24) {
-    return 2;
-  } else {
-    return 3;
-  }
-}
-
-const backgrounds = [
-  'assets/images/main_menu_backgrounds/morning_dawn.png',
-  'assets/images/main_menu_backgrounds/morning.png',
-  'assets/images/main_menu_backgrounds/night.png',
-  'assets/images/main_menu_backgrounds/night_dawn.png'
-];

@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:game_template/src/level_selection/levels.dart';
+import 'package:game_template/src/settings/settings.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class LevelSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.watch<Palette>();
     final playerProgress = context.watch<PlayerProgress>();
+    final settings = context.watch<SettingsController>();
+    updateHerosName(settings);
 
     return Scaffold(
       backgroundColor: palette.backgroundLevelSelection,
@@ -119,3 +122,13 @@ const backgrounds = [
   'assets/images/main_menu_backgrounds/night.png',
   'assets/images/main_menu_backgrounds/night_dawn.png'
 ];
+
+void updateHerosName(settings) {
+  final herosName = settings.playerName.value;
+  for (final level in gameLevels) level.herosName = herosName;
+  for (final level in subLevelsWorldOne) level.herosName = herosName;
+  for (final level in subLevelsWorldTwo) level.herosName = herosName;
+  for (final level in subLevelsWorldThree) level.herosName = herosName;
+  for (final level in subLevelsWorldFour) level.herosName = herosName;
+  for (final level in subLevelsWorldFive) level.herosName = herosName;
+}

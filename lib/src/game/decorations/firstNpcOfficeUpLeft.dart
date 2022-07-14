@@ -5,8 +5,9 @@ import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
 class FirstNpcOfficeUpLeft extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  FirstNpcOfficeUpLeft(Vector2 position)
+  FirstNpcOfficeUpLeft(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -35,9 +36,13 @@ class FirstNpcOfficeUpLeft extends GameDecoration {
         [
           Say(
             text: [
+              const TextSpan(text: 'Fala comigo '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
               const TextSpan(
                   text:
-                      'Fala comigo!! Já percebeu que o chefe cobra muito a gente nas questões de segurança da informação né?'),
+                      '!! Já percebeu que o chefe cobra muito a gente nas questões de segurança da informação né?'),
             ],
             person: SizedBox(
               height: 100,

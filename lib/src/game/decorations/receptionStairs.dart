@@ -25,7 +25,8 @@ class ReceptionStairs extends GameDecoration with Sensor {
           world: subLevelsWorldOne[0].world,
           map: subLevelsWorldOne[0].map,
           xPositionHero: subLevelsWorldOne[0].xHeroPosition,
-          yPositionHero: subLevelsWorldOne[0].yHeroPosition);
+          yPositionHero: subLevelsWorldOne[0].yHeroPosition,
+          herosName: subLevelsWorldOne[0].herosName);
     }));
   }
 }

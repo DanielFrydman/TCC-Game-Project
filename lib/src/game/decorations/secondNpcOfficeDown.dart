@@ -5,8 +5,9 @@ import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
 class SecondNpcOfficeDown extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  SecondNpcOfficeDown(Vector2 position)
+  SecondNpcOfficeDown(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -35,7 +36,11 @@ class SecondNpcOfficeDown extends GameDecoration {
         [
           Say(
             text: [
-              const TextSpan(text: 'Opa, tudo bão? Hehehe 😁'),
+              const TextSpan(text: 'Opa, tudo bão '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: '? Hehehe 😁'),
             ],
             person: SizedBox(
               height: 100,
@@ -57,7 +62,7 @@ class SecondNpcOfficeDown extends GameDecoration {
           ),
           Say(
             text: [
-              const TextSpan(text: 'Claro que não, fique tranquilo.'),
+              const TextSpan(text: 'Claro que não, não esquenta.'),
             ],
             person: SizedBox(
               height: 100,

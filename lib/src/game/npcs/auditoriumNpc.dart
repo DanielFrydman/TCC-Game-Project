@@ -7,7 +7,9 @@ import 'package:game_template/src/level_selection/levels.dart';
 bool _playerIsClose = false;
 
 class AuditoriumNpc extends SimpleNpc with ObjectCollision {
-  AuditoriumNpc(Vector2 position)
+  final String herosName;
+
+  AuditoriumNpc(Vector2 position, this.herosName)
       : super(
           position: position, //required
           size: Vector2(16, 32), //required
@@ -52,7 +54,11 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
             text: [
               const TextSpan(
                   text:
-                      'Pelo visto temos uma pessoa atrasada no primeiro dia...')
+                      'Pelo visto temos uma pessoa atrasada no primeiro dia... cof cof, '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: ', cof cof...'),
             ],
             person: SizedBox(
               height: 100,
@@ -175,7 +181,8 @@ class AuditoriumNpc extends SimpleNpc with ObjectCollision {
           question: subLevelsWorldOne[1].question,
           rightAwnser: subLevelsWorldOne[1].rightAwnser,
           wrongAwnser: subLevelsWorldOne[1].wrongAwnser,
-          awnser: subLevelsWorldOne[1].awnser);
+          awnser: subLevelsWorldOne[1].awnser,
+          herosName: subLevelsWorldOne[1].herosName);
     }));
   }
 }

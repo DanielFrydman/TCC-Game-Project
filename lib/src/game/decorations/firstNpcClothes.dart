@@ -5,8 +5,9 @@ import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
 class FirstNpcClothes extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  FirstNpcClothes(Vector2 position)
+  FirstNpcClothes(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -59,7 +60,11 @@ class FirstNpcClothes extends GameDecoration {
             text: [
               const TextSpan(
                   text:
-                      'Foi você quem chegou atrasado na palestra, né? Tinha um rapaz te procurando...'),
+                      'Foi você quem chegou atrasado na palestra, né? Seu nome é '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: ', não é? Tinha um rapaz te procurando...'),
             ],
             person: SizedBox(
               height: 100,

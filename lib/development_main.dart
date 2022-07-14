@@ -7,9 +7,11 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:game_template/app_config.dart';
 import 'package:game_template/firebase_options.dart';
 import 'package:game_template/src/screens/signin_screen.dart';
 import 'package:game_template/src/screens/singup_screen.dart';
+import 'package:game_template/src/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
@@ -50,10 +52,10 @@ Future<void> main() async {
   //     debugPrint("Firebase couldn't be initialized: $e");
   //   }
   // }
-
+  await AppConfig().load('development');
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform
+    options: AppConfig().firebaseOptions
   );
 
   await guardWithCrashlytics(
@@ -133,8 +135,13 @@ class MyApp extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const SignInScreen(key: Key('sign in')),
+        builder: (context, state) => const WelcomeScreen(key: Key('welcome')),
         routes: [
+          GoRoute(
+            path: 'signIn',
+            builder: (context, state) =>
+                const SignInScreen(key: Key('sign in')),
+          ),
           GoRoute(
             path: 'signUp',
             builder: (context, state) =>
@@ -232,7 +239,7 @@ class MyApp extends StatelessWidget {
           final palette = context.watch<Palette>();
 
           return MaterialApp.router(
-            title: 'Flutter Demo',
+            title: 'Aprendendo Segurança da Informação!',
             theme: ThemeData.from(
               colorScheme: ColorScheme.fromSeed(
                 seedColor: palette.darkPen,

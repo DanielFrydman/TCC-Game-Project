@@ -7,8 +7,9 @@ import 'package:game_template/src/level_selection/levels.dart';
 
 class SecondNpcOfficeUpLeft extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  SecondNpcOfficeUpLeft(Vector2 position)
+  SecondNpcOfficeUpLeft(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -37,9 +38,13 @@ class SecondNpcOfficeUpLeft extends GameDecoration {
         [
           Say(
             text: [
+              const TextSpan(text: 'Oie '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
               const TextSpan(
                   text:
-                      'Oie, tudo bom? Precisava que assinasse os documentos da sua entrada na empresa.'),
+                      ', tudo bom? Precisava que assinasse os documentos da sua entrada na empresa.'),
             ],
             person: SizedBox(
               height: 100,
@@ -160,7 +165,8 @@ class SecondNpcOfficeUpLeft extends GameDecoration {
           question: subLevelsWorldFour[0].question,
           rightAwnser: subLevelsWorldFour[0].rightAwnser,
           wrongAwnser: subLevelsWorldFour[0].wrongAwnser,
-          awnser: subLevelsWorldFour[0].awnser);
+          awnser: subLevelsWorldFour[0].awnser,
+          herosName: subLevelsWorldFour[0].herosName);
     }));
   }
 }

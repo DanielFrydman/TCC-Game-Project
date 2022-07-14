@@ -31,6 +31,8 @@ dependencies:
   google_mobile_ads: ^1.1.0  # Ads
   in_app_purchase: ^3.0.1  # In-app purchases
   firebase_auth: ^3.4.1 # SignIn and SignOut Auth
+  auto_size_text: ^3.0.0 # Responsive FontSize
+  flutter_dotenv: ^5.0.2 # Dot env for envirorments
 
 dev_dependencies:
   flutter_test:
@@ -46,6 +48,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - development.env
+    - production.env
     - assets/images/
     - assets/music/
     - assets/sfx/
@@ -69,6 +73,6 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icon.png"
-  adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/icon-adaptive-foreground.png"
+  image_path: "assets/images/icon.png"
+  adaptive_icon_background: "#ffffff"
+  adaptive_icon_foreground: "assets/images/icon-android.png"

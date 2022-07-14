@@ -151,7 +151,8 @@ class ThirdNpcOfficeDown extends GameDecoration {
           question: subLevelsWorldThree[0].question,
           rightAwnser: subLevelsWorldThree[0].rightAwnser,
           wrongAwnser: subLevelsWorldThree[0].wrongAwnser,
-          awnser: subLevelsWorldThree[0].awnser);
+          awnser: subLevelsWorldThree[0].awnser,
+          herosName: subLevelsWorldThree[0].herosName);
     }));
   }
 }

@@ -7,8 +7,9 @@ import 'package:game_template/src/level_selection/levels.dart';
 
 class ThirdNpcClothes extends GameDecoration {
   bool _playerIsClose = false;
+  final String herosName;
 
-  ThirdNpcClothes(Vector2 position)
+  ThirdNpcClothes(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -37,9 +38,12 @@ class ThirdNpcClothes extends GameDecoration {
         [
           Say(
             text: [
+              const TextSpan(text: 'Caraca '),
+              TextSpan(
+                  text: '${this.herosName}',
+                  style: TextStyle(color: Colors.purpleAccent)),
               const TextSpan(
-                  text:
-                      'Caraca, eu estava te procurando, como você me encontrou?'),
+                  text: ', eu estava te procurando, como você me encontrou?'),
             ],
             person: SizedBox(
               height: 100,
@@ -65,7 +69,7 @@ class ThirdNpcClothes extends GameDecoration {
             text: [
               const TextSpan(
                   text:
-                      'É que você é dos meus, chegou atrasado no primeiro dia, igualzinho a mim.'),
+                      'É que você é dos meus, chegou atrasado no primeiro dia, eu fiz a mesma coisa.'),
             ],
             person: SizedBox(
               height: 100,
@@ -146,7 +150,8 @@ class ThirdNpcClothes extends GameDecoration {
           question: subLevelsWorldTwo[0].question,
           rightAwnser: subLevelsWorldTwo[0].rightAwnser,
           wrongAwnser: subLevelsWorldTwo[0].wrongAwnser,
-          awnser: subLevelsWorldTwo[0].awnser);
+          awnser: subLevelsWorldTwo[0].awnser,
+          herosName: subLevelsWorldTwo[0].herosName);
     }));
   }
 }

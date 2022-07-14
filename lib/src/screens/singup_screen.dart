@@ -1,7 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:game_template/src/screens/reusable_widget.dart';
+import 'package:game_template/src/shared/reusable_widget.dart';
+import 'package:game_template/src/settings/settings.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -10,18 +14,13 @@ class SignUpScreen extends StatefulWidget {
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-const _verticalGap = SizedBox(
-  height: 20,
-);
-
-const _horizontalGap = SizedBox(
-  width: 20,
-);
-
 class _SignUpScreenState extends State<SignUpScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final usernameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
+  String errorMessage = '';
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,56 +39,91 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    children: [
-                      _verticalGap,
-                      _verticalGap,
-                      SizedBox(
-                        width: 400,
-                        height: 50,
-                        child: reusableTextField(
-                            "Nome do Usuário",
-                            Icons.account_box_rounded,
-                            false,
-                            usernameController),
-                      ),
-                      _verticalGap,
-                      SizedBox(
-                        width: 400,
-                        height: 50,
-                        child: reusableTextField("Email", Icons.account_circle,
-                            false, emailController),
-                      ),
-                      _verticalGap,
-                      SizedBox(
-                        width: 400,
-                        height: 50,
-                        child: reusableTextField(
-                            "Senha", Icons.lock, true, passwordController),
-                      ),
-                      _verticalGap,
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            usableButton(context, 'VOLTAR', () {
-                              GoRouter.of(context).go('/');
-                            }, 190.0),
-                            _horizontalGap,
-                            usableButton(context, 'CRIAR CONTA', () {
-                              FirebaseAuth.instance
-                                  .createUserWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) {
-                                print("Nova conta criada com sucesso.");
-                                GoRouter.of(context).go('/menu');
-                              }).onError((error, stackTrace) {
-                                print("Error ${error.toString()}");
-                              });
-                            }, 190.0),
-                          ]),
-                          _verticalGap,
-                    ],
+                  Form(
+                    key: _key,
+                    child: Column(
+                      children: [
+                        verticalGap,
+                        verticalGap,
+                        SizedBox(
+                          width: 400,
+                          child: reusableTextField(
+                              "Nome do Usuário",
+                              Icons.account_box_rounded,
+                              false,
+                              _usernameController,
+                              validateUsername),
+                        ),
+                        verticalGap,
+                        SizedBox(
+                          width: 400,
+                          child: reusableTextField(
+                              "Email",
+                              Icons.account_circle,
+                              false,
+                              _emailController,
+                              validateEmail),
+                        ),
+                        verticalGap,
+                        SizedBox(
+                          width: 400,
+                          child: reusableTextField("Senha", Icons.lock, true,
+                              _passwordController, validateCreatePassword),
+                        ),
+                        if (!errorMessage.isEmpty) ...[
+                          verticalGap,
+                          AutoSizeText(
+                            errorMessage,
+                            style: GoogleFonts.vt323(
+                              textStyle: TextStyle(
+                                  fontSize: 15,
+                                  height: 1,
+                                  fontWeight: FontWeight.w600,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                        color: Colors.white,
+                                        offset: Offset(0, 0),
+                                        blurRadius: 30)
+                                  ]),
+                            ),
+                            textAlign: TextAlign.center,
+                            maxLines: 3,
+                          ),
+                        ],
+                        verticalGap,
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              usableButton(context, 'VOLTAR', () {
+                                GoRouter.of(context).go('/');
+                              }, 190.0),
+                              horizontalGap,
+                              usableButton(context, 'CRIAR CONTA', () async {
+                                errorMessage = '';
+                                setState(() => isLoading = true);
+                                if (_key.currentState!.validate()) {
+                                  try {
+                                    await FirebaseAuth.instance
+                                        .createUserWithEmailAndPassword(
+                                            email: _emailController.text,
+                                            password: _passwordController.text);
+
+                                    context
+                                        .read<SettingsController>()
+                                        .setPlayerName(capitalize(
+                                            _usernameController.text));
+
+                                    GoRouter.of(context).go('/menu');
+                                  } on FirebaseAuthException catch (error) {
+                                    errorMessage = error.message!;
+                                  }
+                                }
+                                setState(() => isLoading = false);
+                              }, 190.0, isLoading: isLoading),
+                            ]),
+                        verticalGap,
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -100,23 +134,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-
-int getBackgroundForDayTime() {
-  DateTime dateTime = DateTime.now();
-  if (dateTime.hour >= 3 && dateTime.hour < 6) {
-    return 0;
-  } else if (dateTime.hour >= 6 && dateTime.hour < 18) {
-    return 1;
-  } else if (dateTime.hour >= 18 && dateTime.hour < 24) {
-    return 2;
-  } else {
-    return 3;
-  }
-}
-
-const backgrounds = [
-  'assets/images/main_menu_backgrounds/morning_dawn.png',
-  'assets/images/main_menu_backgrounds/morning.png',
-  'assets/images/main_menu_backgrounds/night.png',
-  'assets/images/main_menu_backgrounds/night_dawn.png'
-];

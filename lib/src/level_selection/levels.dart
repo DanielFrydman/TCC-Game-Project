@@ -170,6 +170,8 @@ class GameLevel {
   final int bonusAwnser;
   final String rightAwnserBonus;
   final String bonusOption;
+  String herosName;
+  // context.watch<SettingsController>()
 
   /// The achievement to unlock when the level is finished, if any.
   final String? achievementIdIOS;
@@ -178,7 +180,7 @@ class GameLevel {
 
   bool get awardsAchievement => achievementIdAndroid != null;
 
-  const GameLevel({
+  GameLevel({
     required this.number,
     required this.world,
     required this.map,
@@ -193,6 +195,7 @@ class GameLevel {
     this.bonusAwnser = 0,
     this.rightAwnserBonus = "",
     this.bonusOption = "",
+    this.herosName = "",
     this.achievementIdIOS,
     this.achievementIdAndroid,
   }) : assert(

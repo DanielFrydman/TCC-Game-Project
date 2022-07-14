@@ -5,8 +5,9 @@ import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 
 class Totem extends GameDecoration with ObjectCollision {
   bool _playerIsClose = false;
+  final String herosName;
 
-  Totem(Vector2 position)
+  Totem(Vector2 position, this.herosName)
       : super(
           size: Vector2(0, 0),
           position: position,
@@ -39,11 +40,12 @@ class Totem extends GameDecoration with ObjectCollision {
         [
           Say(
             text: [
-              const TextSpan(text: 'Seja muito bem-vindo ao ´'),
+              TextSpan(text: '${this.herosName}', style: TextStyle(color: Colors.purpleAccent)),
+              const TextSpan(text: ' seja muito bem-vindo ao '),
               const TextSpan(
                   text: 'Aprendendo Segurança da Informação',
                   style: TextStyle(color: Colors.amber)),
-              const TextSpan(text: '´!'),
+              const TextSpan(text: '!'),
             ],
             person: SizedBox(
               height: 250,

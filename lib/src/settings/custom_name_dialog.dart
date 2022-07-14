@@ -35,18 +35,20 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
         curve: Curves.easeOutCubic,
       ),
       child: SimpleDialog(
+        backgroundColor: Colors.white,
         title: const Text('Alterar nome'),
         children: [
           TextField(
             controller: _controller,
             autofocus: true,
-            maxLength: 12,
+            maxLength: 20,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             textAlign: TextAlign.center,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.done,
             onChanged: (value) {
-              context.read<SettingsController>().setPlayerName(value);
+              final name = value[0].toUpperCase() + value.substring(1);
+              context.read<SettingsController>().setPlayerName(name);
             },
             onSubmitted: (value) {
               // Player tapped 'Submit'/'Done' on their keyboard.
@@ -55,7 +57,7 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
           ),
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Fechar'),
+            child: const Text('Fechar', style: TextStyle(color: Colors.black)),
           ),
         ],
       ),
