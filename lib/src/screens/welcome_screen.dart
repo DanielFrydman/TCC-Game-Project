@@ -1,11 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:game_template/src/audio/audio_controller.dart';
-import 'package:game_template/src/games_services/games_services.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
@@ -55,32 +52,32 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       'Fazer Login',
                     ),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFff0000),
+                        primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: responsiveFontSize(context) / 2,
+                              fontSize: responsiveFontSize(context) / 2.2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
-                // ElevatedButton(
-                //     onPressed: () => GoRouter.of(context).go('/menu/settings'),
-                //     child: Text('Configurações'),
-                //     style: ElevatedButton.styleFrom(
-                //         primary: Color(0xFFff0000),
-                //         textStyle: GoogleFonts.vt323(
-                //           textStyle: TextStyle(
-                //               fontSize: responsiveFontSize(context) / 2,
-                //               height: 1,
-                //               fontWeight: FontWeight.w500),
-                //         ))),
+                ElevatedButton(
+                    onPressed: () => GoRouter.of(context).go('/menu/settings'),
+                    child: Text('Configurações'),
+                    style: ElevatedButton.styleFrom(
+                        primary: buttonColor,
+                        textStyle: GoogleFonts.vt323(
+                          textStyle: TextStyle(
+                              fontSize: responsiveFontSize(context) / 2.2,
+                              height: 1,
+                              fontWeight: FontWeight.w500),
+                        ))),
                 ElevatedButton(
                     onPressed: () => GoRouter.of(context).go('/signUp'),
                     child: Text('Criar Conta'),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFff0000),
+                        primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: responsiveFontSize(context) / 2,
+                              fontSize: responsiveFontSize(context) / 2.2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
