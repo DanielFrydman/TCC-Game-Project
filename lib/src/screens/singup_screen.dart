@@ -21,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   String errorMessage = '';
   bool isLoading = false;
+  bool _passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -66,10 +67,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         verticalGap,
                         SizedBox(
-                          width: 400,
-                          child: reusableTextField("Senha", Icons.lock, true,
-                              _passwordController, validateCreatePassword),
-                        ),
+                            width: 400,
+                            child: reusableTextField("Senha", Icons.lock, true,
+                                _passwordController, validateCreatePassword,
+                                suffixIcon: IconButton(
+                                  padding: EdgeInsets.only(right: 5),
+                                  icon: Icon(
+                                      _passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.white),
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                ),
+                                passwordVisible: _passwordVisible)),
                         if (!errorMessage.isEmpty) ...[
                           verticalGap,
                           AutoSizeText(
