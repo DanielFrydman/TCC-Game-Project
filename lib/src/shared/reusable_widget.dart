@@ -33,7 +33,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
           borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
       errorStyle: GoogleFonts.vt323(
           textStyle: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.w500),
+              fontSize: 21.8, fontWeight: FontWeight.w500),
           color: buttonColor,
           shadows: <Shadow>[
             Shadow(color: Colors.white, offset: Offset(0, 0), blurRadius: 20),
@@ -126,8 +126,8 @@ String? validateCreatePassword(String? formPassword) {
   RegExp regex = RegExp(pattern);
 
   if (!regex.hasMatch(formPassword)) {
-    return '''Escolha uma senha mais segura. Use uma com
--binação de letras maiúsculas, minúsculas,
+    return '''Escolha uma senha mais segura. Use uma com-
+binação de letras maiúsculas, minúsculas,
 números e símbolos.''';
   }
 
