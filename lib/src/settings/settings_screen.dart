@@ -1,7 +1,4 @@
-// Copyright 2022, the Flutter project authors. Please see the AUTHORS file
-// for details. All rights reserved. Use of this source code is governed by a
-// BSD-style license that can be found in the LICENSE file.
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
@@ -50,9 +47,11 @@ class SettingsScreen extends StatelessWidget {
               Expanded(
                 child: ListView(
                   children: [
-                    const _NameChangeLine(
-                      'Nome',
-                    ),
+                    if (FirebaseAuth.instance.currentUser != null) ...[
+                      const _NameChangeLine(
+                        'Nome',
+                      )
+                    ],
                     ValueListenableBuilder<bool>(
                       valueListenable: settings.soundsOn,
                       builder: (context, soundsOn, child) => _SettingsLine(
@@ -104,25 +103,27 @@ class SettingsScreen extends StatelessWidget {
                         onSelected: callback,
                       );
                     }),
-                    _SettingsLine(
-                      'Redefinir progresso',
-                      Image.asset('assets/images/buttons/restart.png',
-                          scale: 0.5),
-                      onSelected: () {
-                        context.read<PlayerProgress>().reset();
+                    if (FirebaseAuth.instance.currentUser != null) ...[
+                      _SettingsLine(
+                        'Redefinir progresso',
+                        Image.asset('assets/images/buttons/restart.png',
+                            scale: 0.5),
+                        onSelected: () {
+                          context.read<PlayerProgress>().reset();
 
-                        final messenger = ScaffoldMessenger.of(context);
-                        messenger.showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  'O progresso do jogador foi redefinido.',
-                                  style: GoogleFonts.vt323(
-                                      textStyle: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.w300)))),
-                        );
-                      },
-                    ),
+                          final messenger = ScaffoldMessenger.of(context);
+                          messenger.showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    'O progresso do jogador foi redefinido.',
+                                    style: GoogleFonts.vt323(
+                                        textStyle: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.w300)))),
+                          );
+                        },
+                      ),
+                    ],
                     _SettingsLine(
                       'Créditos',
                       Image.asset('assets/images/buttons/credits.png',
@@ -139,14 +140,15 @@ class SettingsScreen extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    GoRouter.of(context).go('/menu');
+                    FirebaseAuth.instance.currentUser != null ? GoRouter.of(context).go('/menu') : GoRouter.of(context).go('/');
                   },
                   child: Text('Voltar'),
                   style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFff0000),
+                      primary: buttonColor,
                       textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: responsiveFontSize(context)/2, fontWeight: FontWeight.w300),
+                            fontSize: responsiveFontSize(context) / 2,
+                            fontWeight: FontWeight.w300),
                       ))),
             ],
           ),
@@ -267,13 +269,17 @@ class _Credits extends StatelessWidget {
                                 Text('Sprites         - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: responsiveFontSize(context)/2.5,
+                                            fontSize:
+                                                responsiveFontSize(context) /
+                                                    2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text('https://limezu.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: responsiveFontSize(context)/2.5,
+                                              fontSize:
+                                                  responsiveFontSize(context) /
+                                                      2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -291,14 +297,18 @@ class _Credits extends StatelessWidget {
                                 Text('Música          - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: responsiveFontSize(context)/2.5,
+                                            fontSize:
+                                                responsiveFontSize(context) /
+                                                    2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://opengameart.org/users/zane-little-music',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: responsiveFontSize(context)/2.5,
+                                              fontSize:
+                                                  responsiveFontSize(context) /
+                                                      2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -316,14 +326,18 @@ class _Credits extends StatelessWidget {
                                 Text('Planos de Fundo - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: responsiveFontSize(context)/2.5,
+                                            fontSize:
+                                                responsiveFontSize(context) /
+                                                    2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://digitalmoons.itch.io/pixel-skies-demo',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: responsiveFontSize(context)/2.5,
+                                              fontSize:
+                                                  responsiveFontSize(context) /
+                                                      2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -341,14 +355,18 @@ class _Credits extends StatelessWidget {
                                 Text('Ícones          - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: responsiveFontSize(context)/2.5,
+                                            fontSize:
+                                                responsiveFontSize(context) /
+                                                    2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text(
                                       'https://blackdragon1727.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: responsiveFontSize(context)/2.5,
+                                              fontSize:
+                                                  responsiveFontSize(context) /
+                                                      2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -366,13 +384,17 @@ class _Credits extends StatelessWidget {
                                 Text('Alguns Efeitos  - ',
                                     style: GoogleFonts.vt323(
                                         textStyle: TextStyle(
-                                            fontSize: responsiveFontSize(context)/2.5,
+                                            fontSize:
+                                                responsiveFontSize(context) /
+                                                    2.5,
                                             fontWeight: FontWeight.w300))),
                                 GestureDetector(
                                   child: Text('https://nyknck.itch.io/',
                                       style: GoogleFonts.vt323(
                                           textStyle: TextStyle(
-                                              fontSize: responsiveFontSize(context)/2.5,
+                                              fontSize:
+                                                  responsiveFontSize(context) /
+                                                      2.5,
                                               fontWeight: FontWeight.w300,
                                               color: Colors.pink,
                                               decoration:
@@ -398,10 +420,11 @@ class _Credits extends StatelessWidget {
                   },
                   child: Text('Voltar'),
                   style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFff0000),
+                      primary: buttonColor,
                       textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
-                            fontSize: responsiveFontSize(context)/2, fontWeight: FontWeight.w300),
+                            fontSize: responsiveFontSize(context) / 2,
+                            fontWeight: FontWeight.w300),
                       ))),
             ],
           ),
@@ -410,23 +433,3 @@ class _Credits extends StatelessWidget {
     );
   }
 }
-
-int getBackgroundForDayTime() {
-  DateTime dateTime = DateTime.now();
-  if (dateTime.hour >= 3 && dateTime.hour < 6) {
-    return 0;
-  } else if (dateTime.hour >= 6 && dateTime.hour < 18) {
-    return 1;
-  } else if (dateTime.hour >= 18 && dateTime.hour < 24) {
-    return 2;
-  } else {
-    return 3;
-  }
-}
-
-const backgrounds = [
-  'assets/images/main_menu_backgrounds/morning_dawn.png',
-  'assets/images/main_menu_backgrounds/morning.png',
-  'assets/images/main_menu_backgrounds/night.png',
-  'assets/images/main_menu_backgrounds/night_dawn.png'
-];
