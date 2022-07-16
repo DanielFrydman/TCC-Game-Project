@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller, validator) {
+    TextEditingController controller, validator,
+    {suffixIcon = null, passwordVisible = false}) {
   return TextFormField(
     validator: validator,
     controller: controller,
-    obscureText: isPasswordType,
+    obscureText: passwordVisible,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     textCapitalization: text == 'Nome do Usuário'
@@ -20,6 +21,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
           Shadow(color: Colors.black, offset: Offset(0, 0), blurRadius: 20)
         ]),
     decoration: InputDecoration(
+      suffixIcon: suffixIcon,
       prefixIcon: Icon(icon, color: Colors.white),
       labelText: text,
       labelStyle: TextStyle(color: Colors.white),
@@ -30,8 +32,9 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
           borderRadius: BorderRadius.circular(4.0),
           borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
       errorStyle: GoogleFonts.vt323(
-          textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          color: Color(0xFFff0000),
+          textStyle: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.w500),
+          color: buttonColor,
           shadows: <Shadow>[
             Shadow(color: Colors.white, offset: Offset(0, 0), blurRadius: 20),
           ]),
@@ -42,7 +45,8 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
   );
 }
 
-Container usableButton(BuildContext context, text, Function onTap, width, {bool isLoading = false}) {
+Container usableButton(BuildContext context, text, Function onTap, width,
+    {bool isLoading = false}) {
   return Container(
     width: width,
     height: 50,
@@ -51,23 +55,27 @@ Container usableButton(BuildContext context, text, Function onTap, width, {bool 
       onPressed: () {
         onTap();
       },
-      child: isLoading ? CircularProgressIndicator(color: Colors.white,) : Text(
-        text,
-        style: GoogleFonts.vt323(
-          textStyle: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      ),
+      child: isLoading
+          ? CircularProgressIndicator(
+              color: Colors.white,
+            )
+          : Text(
+              text,
+              style: GoogleFonts.vt323(
+                textStyle: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
       style: ButtonStyle(
           backgroundColor: MaterialStateProperty.resolveWith((states) {
             if (states.contains(MaterialState.pressed)) {
-              return Color(0xFFff0000).withOpacity(0.6);
+              return buttonColor.withOpacity(0.6);
             }
 
-            return Color(0xFFff0000).withOpacity(0.85);
+            return buttonColor.withOpacity(0.85);
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)))),
@@ -85,7 +93,7 @@ double responsiveFontSize(context) {
     return 70;
   } else if (width < 1400 || height < 800) {
     return 75;
-  } 
+  }
 
   return 100;
 }
@@ -118,8 +126,9 @@ String? validateCreatePassword(String? formPassword) {
   RegExp regex = RegExp(pattern);
 
   if (!regex.hasMatch(formPassword)) {
-    return '''Escolha uma senha mais segura. Use uma
-combinação de letras, números e símbolos.''';
+    return '''Escolha uma senha mais segura. Use uma com
+-binação de letras maiúsculas, minúsculas,
+números e símbolos.''';
   }
 
   return null;
@@ -178,3 +187,5 @@ const horizontalGap = SizedBox(
 const horizontalHalfGap = SizedBox(
   width: 5,
 );
+
+const buttonColor = Color(0xFF0000FF);

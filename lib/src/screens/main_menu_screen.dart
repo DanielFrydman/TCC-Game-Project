@@ -65,7 +65,7 @@ class MainMenuScreen extends StatelessWidget {
                       'Jogar',
                     ),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFff0000),
+                        primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
                               fontSize: responsiveFontSize(context)/2,
@@ -80,7 +80,7 @@ class MainMenuScreen extends StatelessWidget {
                               gamesServicesController.showAchievements(),
                           child: Text('Conquistas'),
                           style: ElevatedButton.styleFrom(
-                              primary: Color(0xFFff0000),
+                              primary: buttonColor,
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
                                     fontSize: responsiveFontSize(context)/2,
@@ -94,7 +94,7 @@ class MainMenuScreen extends StatelessWidget {
                               gamesServicesController.showLeaderboard(),
                           child: Text('Placar de Líderes'),
                           style: ElevatedButton.styleFrom(
-                              primary: Color(0xFFff0000),
+                              primary: buttonColor,
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
                                     fontSize: responsiveFontSize(context)/2,
@@ -106,7 +106,7 @@ class MainMenuScreen extends StatelessWidget {
                     onPressed: () => GoRouter.of(context).go('/menu/settings'),
                     child: Text('Configurações'),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFff0000),
+                        primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
                               fontSize: responsiveFontSize(context)/2,
@@ -121,7 +121,7 @@ class MainMenuScreen extends StatelessWidget {
                     },
                     child: Text('Sair'),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFFff0000),
+                        primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
                               fontSize: responsiveFontSize(context)/2,

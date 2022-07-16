@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:game_template/src/level_selection/levels.dart';
 import 'package:game_template/src/settings/settings.dart';
+import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +91,7 @@ class LevelSelectionScreen extends StatelessWidget {
                   },
                   child: Text('Voltar'),
                   style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFff0000),
+                      primary: buttonColor,
                       textStyle: GoogleFonts.vt323(
                         textStyle: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.w300),
