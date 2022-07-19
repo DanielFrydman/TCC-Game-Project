@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/shared/firebase_auth_errors.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:game_template/src/settings/settings.dart';
 import 'package:go_router/go_router.dart';
@@ -89,17 +90,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           AutoSizeText(
                             errorMessage,
                             style: GoogleFonts.vt323(
-                              textStyle: TextStyle(
-                                  fontSize: 15,
-                                  height: 1,
-                                  fontWeight: FontWeight.w600,
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                        color: Colors.white,
-                                        offset: Offset(0, 0),
-                                        blurRadius: 30)
-                                  ]),
-                            ),
+                                textStyle: TextStyle(
+                                    fontSize: 21.8,
+                                    fontWeight: FontWeight.w500),
+                                color: buttonColor,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0, 0),
+                                      blurRadius: 20),
+                                ]),
                             textAlign: TextAlign.center,
                             maxLines: 3,
                           ),
@@ -129,7 +129,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
                                     GoRouter.of(context).go('/menu');
                                   } on FirebaseAuthException catch (error) {
-                                    errorMessage = error.message!;
+                                    errorMessage = errors[error.code]!;
                                   }
                                 }
                                 setState(() => isLoading = false);
