@@ -2,6 +2,7 @@ import 'package:bonfire/bonfire.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/game/sprite_sheets/game_sprite_sheet.dart';
 import 'package:game_template/src/player_progress/player_progress.dart';
+import 'package:game_template/src/shared/cloud_firebase_methods.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
@@ -14,9 +15,18 @@ class AwnserRight extends SimpleEnemy {
   final String rightAwnserBonus;
   final int bonusAwnser;
   final String herosName;
+  final String question;
 
-  AwnserRight(Vector2 position, this.world, this.rightAwnser, this.wrongAwnser,
-      this.awnser, this.rightAwnserBonus, this.bonusAwnser, this.herosName)
+  AwnserRight(
+      Vector2 position,
+      this.world,
+      this.rightAwnser,
+      this.wrongAwnser,
+      this.awnser,
+      this.rightAwnserBonus,
+      this.bonusAwnser,
+      this.herosName,
+      this.question)
       : super(
             position: position,
             size: Vector2(45, 28),
@@ -90,6 +100,11 @@ class AwnserRight extends SimpleEnemy {
       ], onClose: () {
         gameRef.camera.moveToPlayerAnimated(zoom: 2);
       }, onFinish: () {
+        updateHistoryFromUser(
+            world: this.world,
+            question: this.question,
+            result: 'correct with bonus');
+
         _goNextStage();
       });
     });
@@ -135,6 +150,9 @@ class AwnserRight extends SimpleEnemy {
       ], onClose: () {
         gameRef.camera.moveToPlayerAnimated(zoom: 2);
       }, onFinish: () {
+        updateHistoryFromUser(
+            world: this.world, question: this.question, result: 'correct');
+
         _goNextStage();
       });
     });
@@ -180,6 +198,9 @@ class AwnserRight extends SimpleEnemy {
       ], onClose: () {
         gameRef.camera.moveToPlayerAnimated(zoom: 2);
       }, onFinish: () {
+        updateHistoryFromUser(
+            world: this.world, question: this.question, result: 'wrong');
+
         _goNextStage();
       });
     });

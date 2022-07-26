@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/shared/cloud_firebase_methods.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +21,7 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsController>();
+    final playerProgress = context.watch<PlayerProgress>();
 
     return Scaffold(
       body: Container(
@@ -109,18 +111,32 @@ class SettingsScreen extends StatelessWidget {
                         Image.asset('assets/images/buttons/restart.png',
                             scale: 0.5),
                         onSelected: () {
-                          context.read<PlayerProgress>().reset();
+                          if (playerProgress.highestLevelReached > 0) {
+                            context.read<PlayerProgress>().reset();
+                            updateHistoryFromUser(reseted: true);
 
-                          final messenger = ScaffoldMessenger.of(context);
-                          messenger.showSnackBar(
-                            SnackBar(
-                                content: Text(
-                                    'O progresso do jogador foi redefinido.',
-                                    style: GoogleFonts.vt323(
-                                        textStyle: TextStyle(
-                                            fontSize: 30,
-                                            fontWeight: FontWeight.w300)))),
-                          );
+                            final messenger = ScaffoldMessenger.of(context);
+                            messenger.showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'O progresso do jogador foi redefinido.',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300)))),
+                            );
+                          } else {
+                            final messenger = ScaffoldMessenger.of(context);
+                            messenger.showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      'Você ainda está no primeiro nível...',
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300)))),
+                            );
+                          }
                         },
                       ),
                     ],
@@ -140,7 +156,9 @@ class SettingsScreen extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    FirebaseAuth.instance.currentUser != null ? GoRouter.of(context).go('/menu') : GoRouter.of(context).go('/');
+                    FirebaseAuth.instance.currentUser != null
+                        ? GoRouter.of(context).go('/menu')
+                        : GoRouter.of(context).go('/');
                   },
                   child: Text('Voltar'),
                   style: ElevatedButton.styleFrom(
@@ -183,7 +201,7 @@ class _NameChangeLine extends StatelessWidget {
             ValueListenableBuilder(
               valueListenable: settings.playerName,
               builder: (context, name, child) => Text(
-                '‘$name’',
+                '$name',
                 style: GoogleFonts.vt323(
                     textStyle:
                         TextStyle(fontSize: 50, fontWeight: FontWeight.w300)),

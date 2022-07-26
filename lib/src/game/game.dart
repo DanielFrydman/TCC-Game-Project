@@ -134,7 +134,8 @@ class _GameState extends State<Game> {
             this.awnser,
             this.rightAwnserBonus,
             this.bonusAwnser,
-            this.herosName),
+            this.herosName,
+            this.question),
         'awnserRight': (properties) => AwnserRight(
             properties.position,
             this.world,
@@ -143,7 +144,8 @@ class _GameState extends State<Game> {
             this.awnser,
             this.rightAwnserBonus,
             this.bonusAwnser,
-            this.herosName),
+            this.herosName,
+            this.question),
         'firstNpcClothes': (properties) =>
             FirstNpcClothes(properties.position, this.herosName),
         'secondNpcClothes': (properties) =>
@@ -172,7 +174,8 @@ class _GameState extends State<Game> {
             this.awnser,
             this.rightAwnserBonus,
             this.bonusAwnser,
-            this.herosName),
+            this.herosName,
+            this.question),
         'questionBonus': (properties) =>
             QuestionBonus(properties.position, this.question, this.bonusOption),
       }),

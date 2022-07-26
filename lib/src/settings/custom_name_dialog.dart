@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game_template/src/settings/settings.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void showCustomNameDialog(BuildContext context) {
@@ -17,8 +18,10 @@ void showCustomNameDialog(BuildContext context) {
 class CustomNameDialog extends StatefulWidget {
   final Animation<double> animation;
 
-  const CustomNameDialog({required this.animation, Key? key,
-}) : super(key: key);
+  const CustomNameDialog({
+    required this.animation,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<CustomNameDialog> createState() => _CustomNameDialogState();
@@ -36,7 +39,12 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
       ),
       child: SimpleDialog(
         backgroundColor: Colors.white,
-        title: const Text('Alterar nome'),
+        title: Text(
+          'Alterar nome',
+          textAlign: TextAlign.center,
+          style: GoogleFonts.vt323(
+              textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w300)),
+        ),
         children: [
           TextField(
             controller: _controller,
@@ -46,12 +54,10 @@ class _CustomNameDialogState extends State<CustomNameDialog> {
             textAlign: TextAlign.center,
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.done,
-            onChanged: (value) {
+            onSubmitted: (value) {
               final name = value[0].toUpperCase() + value.substring(1);
               context.read<SettingsController>().setPlayerName(name);
-            },
-            onSubmitted: (value) {
-              // Player tapped 'Submit'/'Done' on their keyboard.
+              // updateUserName(name); Don't update in firebase firestore yet
               Navigator.pop(context);
             },
           ),

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/shared/cloud_firebase_methods.dart';
 import 'package:game_template/src/shared/firebase_auth_errors.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:game_template/src/settings/settings.dart';
@@ -126,6 +127,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                         .read<SettingsController>()
                                         .setPlayerName(capitalize(
                                             _usernameController.text));
+
+                                    createNewCollectionForNewAccount(
+                                      capitalize(_usernameController.text),
+                                      _emailController.text,
+                                    );
 
                                     GoRouter.of(context).go('/menu');
                                   } on FirebaseAuthException catch (error) {
