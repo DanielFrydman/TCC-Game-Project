@@ -8,7 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game_template/app_config.dart';
-import 'package:game_template/firebase_options.dart';
+import 'package:game_template/src/screens/history_screen.dart';
 import 'package:game_template/src/screens/signin_screen.dart';
 import 'package:game_template/src/screens/singup_screen.dart';
 import 'package:game_template/src/screens/welcome_screen.dart';
@@ -54,9 +54,7 @@ Future<void> main() async {
   // }
   await AppConfig().load('development');
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: AppConfig().firebaseOptions
-  );
+  await Firebase.initializeApp(options: AppConfig().firebaseOptions);
 
   await guardWithCrashlytics(
     guardedMain,
@@ -168,6 +166,10 @@ class MyApp extends StatelessWidget {
             path: 'menu/settings',
             builder: (context, state) =>
                 const SettingsScreen(key: Key('settings')),
+          ),
+          GoRoute(
+            path: 'menu/history',
+            builder: (context, state) => HistoryScreen(key: Key('history')),
           ),
         ],
       )

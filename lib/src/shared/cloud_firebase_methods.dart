@@ -9,7 +9,13 @@ Future createNewCollectionForNewAccount(name, email) async {
 
   final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
 
-  final json = {'name': name, 'e-mail': email, 'history': []};
+  final json = {
+    'name': name,
+    'e-mail': email,
+    'history': [],
+    'created_at': new DateTime.now(),
+    'updated_at': new DateTime.now()
+  };
 
   await docUser.set(json);
 }
@@ -24,7 +30,11 @@ Future updateHistoryFromUser(
   final historyModel = docSnap.data()?['history'];
 
   History history = History(
-      world: world, question: question, result: result, reseted: reseted);
+      world: world,
+      question: question,
+      result: result,
+      reseted: reseted,
+      created_at: new DateTime.now());
 
   historyModel.add(history.toHash());
 
@@ -49,3 +59,9 @@ Future getUserName() async {
 
   return userNameModel;
 }
+
+Future<DocumentSnapshot<Map<String, dynamic>>> getUserDocumentSnapshot() =>
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get();

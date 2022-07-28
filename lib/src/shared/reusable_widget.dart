@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller, validator,
@@ -32,8 +33,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
           borderRadius: BorderRadius.circular(4.0),
           borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
       errorStyle: GoogleFonts.vt323(
-          textStyle: TextStyle(
-              fontSize: 21.8, fontWeight: FontWeight.w500),
+          textStyle: TextStyle(fontSize: 21.8, fontWeight: FontWeight.w500),
           color: buttonColor,
           shadows: <Shadow>[
             Shadow(color: Colors.white, offset: Offset(0, 0), blurRadius: 20),
@@ -189,3 +189,58 @@ const horizontalHalfGap = SizedBox(
 );
 
 const buttonColor = Color(0xFF0000FF);
+
+String formatDate(date) {
+  if (date.runtimeType != DateTime) {
+    return '    -';
+  }
+
+  final DateFormat dayMonthYearFormat = DateFormat('dd/MM/yyyy');
+  final DateFormat hourMinuteFormat = DateFormat('Hm');
+
+  return "${dayMonthYearFormat.format(date)} às ${hourMinuteFormat.format(date)}";
+}
+
+Text text(text, context) {
+  return Text(text,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.vt323(
+          textStyle: TextStyle(
+              fontSize: responsiveFontSize(context),
+              fontWeight: FontWeight.w300)));
+}
+
+TextStyle textStyle(context, {size = 1}) {
+  return GoogleFonts.vt323(
+      textStyle: TextStyle(
+          fontSize: responsiveFontSize(context) / size,
+          fontWeight: FontWeight.w300));
+}
+
+TextStyle textStyleWithShadow(context, {size = 1}) {
+  return GoogleFonts.vt323(
+      textStyle: TextStyle(
+          fontSize: responsiveFontSize(context) / size,
+          fontWeight: FontWeight.w300,
+          shadows: <Shadow>[
+        Shadow(color: Colors.white, offset: Offset(0, 0), blurRadius: 30)
+      ]));
+}
+
+DataTable dataTable(columns, rows, {dataRowHeight = 140.0}) {
+  return DataTable(
+    headingRowColor: MaterialStateColor.resolveWith(
+        (states) => Colors.white.withOpacity(0.8)),
+    dataRowColor: MaterialStateColor.resolveWith(
+        (states) => Colors.white.withOpacity(0.8)),
+    headingTextStyle: GoogleFonts.vt323(
+        textStyle: TextStyle(
+            fontSize: 30, fontWeight: FontWeight.w300, color: Colors.black)),
+    dataTextStyle: GoogleFonts.vt323(
+        textStyle: TextStyle(
+            fontSize: 25, fontWeight: FontWeight.w300, color: Colors.black)),
+    dataRowHeight: dataRowHeight,
+    columns: columns,
+    rows: rows,
+  );
+}

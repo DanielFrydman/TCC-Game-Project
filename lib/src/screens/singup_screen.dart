@@ -88,7 +88,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 passwordVisible: _passwordVisible)),
                         if (!errorMessage.isEmpty) ...[
                           verticalGap,
-                          AutoSizeText(
+                          Text(
                             errorMessage,
                             style: GoogleFonts.vt323(
                                 textStyle: TextStyle(

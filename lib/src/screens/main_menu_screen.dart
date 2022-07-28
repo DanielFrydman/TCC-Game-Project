@@ -68,7 +68,7 @@ class MainMenuScreen extends StatelessWidget {
                         primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: responsiveFontSize(context)/2,
+                              fontSize: responsiveFontSize(context) / 2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
@@ -83,7 +83,7 @@ class MainMenuScreen extends StatelessWidget {
                               primary: buttonColor,
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
-                                    fontSize: responsiveFontSize(context)/2,
+                                    fontSize: responsiveFontSize(context) / 2,
                                     height: 1,
                                     fontWeight: FontWeight.w500),
                               )))),
@@ -97,7 +97,7 @@ class MainMenuScreen extends StatelessWidget {
                               primary: buttonColor,
                               textStyle: GoogleFonts.vt323(
                                 textStyle: TextStyle(
-                                    fontSize: responsiveFontSize(context)/2,
+                                    fontSize: responsiveFontSize(context) / 2,
                                     height: 1,
                                     fontWeight: FontWeight.w500),
                               )))),
@@ -109,7 +109,18 @@ class MainMenuScreen extends StatelessWidget {
                         primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: responsiveFontSize(context)/2,
+                              fontSize: responsiveFontSize(context) / 2,
+                              height: 1,
+                              fontWeight: FontWeight.w500),
+                        ))),
+                ElevatedButton(
+                    onPressed: () => GoRouter.of(context).go('/menu/history'),
+                    child: Text('Histórico'),
+                    style: ElevatedButton.styleFrom(
+                        primary: buttonColor,
+                        textStyle: GoogleFonts.vt323(
+                          textStyle: TextStyle(
+                              fontSize: responsiveFontSize(context) / 2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
@@ -124,7 +135,7 @@ class MainMenuScreen extends StatelessWidget {
                         primary: buttonColor,
                         textStyle: GoogleFonts.vt323(
                           textStyle: TextStyle(
-                              fontSize: responsiveFontSize(context)/2,
+                              fontSize: responsiveFontSize(context) / 2,
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
