@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:game_template/src/shared/cloud_firebase_methods.dart';
@@ -20,10 +19,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
+  final _managerCode = TextEditingController();
+  final _cleanedManagerCode = TextEditingController();
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   String errorMessage = '';
   bool isLoading = false;
   bool _passwordVisible = true;
+  bool? _checkedValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -86,25 +88,53 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   },
                                 ),
                                 passwordVisible: _passwordVisible)),
-                        if (!errorMessage.isEmpty) ...[
-                          verticalGap,
-                          Text(
-                            errorMessage,
-                            style: GoogleFonts.vt323(
-                                textStyle: TextStyle(
-                                    fontSize: 21.8,
-                                    fontWeight: FontWeight.w500),
-                                color: buttonColor,
-                                shadows: <Shadow>[
-                                  Shadow(
-                                      color: Colors.white,
-                                      offset: Offset(0, 0),
-                                      blurRadius: 20),
-                                ]),
-                            textAlign: TextAlign.center,
-                            maxLines: 3,
-                          ),
-                        ],
+                        verticalGap,
+                        Row(
+                          children: [
+                            if (_checkedValue == false) ...[
+                              SizedBox(
+                                width: 400,
+                                child: CheckboxListTile(
+                                  title: reusableTextField(
+                                    "Você é um Gestor?",
+                                    Icons.account_circle,
+                                    false,
+                                    _cleanedManagerCode,
+                                    returnNullValidation,
+                                    enabled: false),
+                                  value: _checkedValue,
+                                  activeColor: buttonColor,
+                                  contentPadding: EdgeInsets.all(0),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _checkedValue = newValue;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ] else ...[
+                              SizedBox(
+                                width: 400,
+                                child: CheckboxListTile(
+                                  title: reusableTextField(
+                                      "Código de Gestor",
+                                      Icons.account_circle,
+                                      false,
+                                      _managerCode,
+                                      validateManagerCode),
+                                  value: _checkedValue,
+                                  activeColor: buttonColor,
+                                  contentPadding: EdgeInsets.all(0),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      _checkedValue = newValue;
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
+                          ],
+                        ),
                         verticalGap,
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -131,6 +161,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     createNewCollectionForNewAccount(
                                       capitalize(_usernameController.text),
                                       _emailController.text,
+                                      _checkedValue
                                     );
 
                                     GoRouter.of(context).go('/menu');
@@ -142,6 +173,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               }, 190.0, isLoading: isLoading),
                             ]),
                         verticalGap,
+                        if (!errorMessage.isEmpty) ...[
+                          verticalGap,
+                          Text(
+                            errorMessage,
+                            style: GoogleFonts.vt323(
+                                textStyle: TextStyle(
+                                    fontSize: 21.8,
+                                    fontWeight: FontWeight.w500),
+                                color: buttonColor,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                      color: Colors.white,
+                                      offset: Offset(0, 0),
+                                      blurRadius: 20),
+                                ]),
+                            textAlign: TextAlign.center,
+                            maxLines: 3,
+                          ),
+                        ],
                       ],
                     ),
                   ),

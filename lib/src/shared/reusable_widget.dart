@@ -4,13 +4,15 @@ import 'package:intl/intl.dart';
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller, validator,
-    {suffixIcon = null, passwordVisible = false}) {
+    {suffixIcon = null, passwordVisible = false, enabled = true, readOnly = false}) {
   return TextFormField(
     validator: validator,
     controller: controller,
     obscureText: passwordVisible,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
+    enabled: enabled,
+    readOnly: readOnly,
     textCapitalization: text == 'Nome do Usuário'
         ? TextCapitalization.words
         : TextCapitalization.none,
@@ -96,6 +98,18 @@ double responsiveFontSize(context) {
   }
 
   return 100;
+}
+
+String? validateManagerCode(String? managerCode) {
+  if (managerCode == "") return '''Se você é gestor, insira o código.''';
+  if (managerCode != "SOUGESTOR@ASI2022") return '''Código inválido.''';
+
+
+  return null;
+}
+
+String? returnNullValidation(String? cleanedManagerCode) {
+  return null;
 }
 
 String? validateEmail(String? formEmail) {

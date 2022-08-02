@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:game_template/src/shared/history.dart';
 
-Future createNewCollectionForNewAccount(name, email) async {
+Future createNewCollectionForNewAccount(name, email, isManager) async {
   final uid = FirebaseAuth.instance.currentUser?.uid;
 
   final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
@@ -14,7 +14,8 @@ Future createNewCollectionForNewAccount(name, email) async {
     'e-mail': email,
     'history': [],
     'created_at': new DateTime.now(),
-    'updated_at': new DateTime.now()
+    'updated_at': new DateTime.now(),
+    'isManager': isManager
   };
 
   await docUser.set(json);
