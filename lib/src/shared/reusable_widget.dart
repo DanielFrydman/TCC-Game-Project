@@ -1,10 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:game_template/src/shared/cloud_firebase_methods.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller, validator,
-    {suffixIcon = null, passwordVisible = false, enabled = true, readOnly = false}) {
+    {suffixIcon = null,
+    passwordVisible = false,
+    enabled = true,
+    readOnly = false}) {
   return TextFormField(
     validator: validator,
     controller: controller,
@@ -104,7 +113,6 @@ String? validateManagerCode(String? managerCode) {
   if (managerCode == "") return '''Se você é gestor, insira o código.''';
   if (managerCode != "SOUGESTOR@ASI2022") return '''Código inválido.''';
 
-
   return null;
 }
 
@@ -186,6 +194,10 @@ const backgrounds = [
   'assets/images/main_menu_backgrounds/night_dawn.png'
 ];
 
+SizedBox gap(double) {
+  return SizedBox(height: double);
+}
+
 const verticalGap = SizedBox(
   height: 20,
 );
@@ -215,12 +227,12 @@ String formatDate(date) {
   return "${dayMonthYearFormat.format(date)} às ${hourMinuteFormat.format(date)}";
 }
 
-Text text(text, context) {
+Text text(text, context, {size = 1}) {
   return Text(text,
       textAlign: TextAlign.center,
       style: GoogleFonts.vt323(
           textStyle: TextStyle(
-              fontSize: responsiveFontSize(context),
+              fontSize: responsiveFontSize(context) / size,
               fontWeight: FontWeight.w300)));
 }
 
@@ -257,4 +269,88 @@ DataTable dataTable(columns, rows, {dataRowHeight = 140.0}) {
     columns: columns,
     rows: rows,
   );
+}
+
+ElevatedButton button(context, text, route) {
+  return ElevatedButton(
+      onPressed: () => GoRouter.of(context).go(route),
+      child: Text(text),
+      style: ElevatedButton.styleFrom(
+          primary: buttonColor, textStyle: textStyle(context, size: 2)));
+}
+
+ElevatedButton buttonUserHistory(context, text, email) {
+  return ElevatedButton(
+      onPressed: () => GoRouter.of(context)
+          .goNamed('userHistory', params: {'email': '${email}'}),
+      child: Text(text),
+      style: ElevatedButton.styleFrom(
+          primary: buttonColor, textStyle: textStyle(context, size: 2)));
+}
+
+requestedAccessModal(context, email) async {
+  await Future.delayed(Duration(microseconds: 1));
+  showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+          child: Container(
+            constraints: BoxConstraints(maxHeight: 130, maxWidth: 600),
+            child: Padding(
+                padding: EdgeInsets.only(left: 20, right: 20),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          text: "Deseja conceder acesso ao seu histórico?",
+                          style: GoogleFonts.vt323(
+                              textStyle: TextStyle(
+                                  fontSize: 30,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w300)),
+                        )),
+                    verticalGap,
+                    Container(
+                        decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.3),
+                          // border: BoxBorder.lerp(null, null, 10.0),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Column(children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              text(email, context, size: 2),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    removeManagerFromHistoryRequest(email);
+                                    Navigator.pop(context, true);
+                                  },
+                                  child: Text('Não'),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.red,
+                                      textStyle: textStyle(context, size: 2))),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    removeManagerFromHistoryRequest(email);
+                                    updateHistoryAccess(email);
+                                    Navigator.pop(context, true);
+                                  },
+                                  child: Text('Sim'),
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.green,
+                                      textStyle: textStyle(context, size: 2)))
+                            ],
+                          ),
+                        ])),
+                  ],
+                )),
+          ),
+        );
+      });
 }

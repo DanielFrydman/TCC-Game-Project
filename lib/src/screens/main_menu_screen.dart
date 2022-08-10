@@ -4,6 +4,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:game_template/src/shared/cloud_firebase_methods.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +140,22 @@ class MainMenuScreen extends StatelessWidget {
                               height: 1,
                               fontWeight: FontWeight.w500),
                         ))),
+                FutureBuilder(
+                    future: getUserDocumentSnapshotByEmail(
+                        FirebaseAuth.instance.currentUser?.email),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        Map<String, dynamic> data =
+                            snapshot.data!.data() as Map<String, dynamic>;
+
+                        List historyRequest = data['historyRequest'];
+
+                        if (historyRequest.length > 0) {
+                          requestedAccessModal(context, historyRequest.first);
+                        }
+                      }
+                      return Text('');
+                    })
               ],
             ),
           ],

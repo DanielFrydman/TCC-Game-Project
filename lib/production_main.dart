@@ -8,9 +8,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:game_template/app_config.dart';
+import 'package:game_template/src/screens/grant_access_history.dart';
 import 'package:game_template/src/screens/history_screen.dart';
+import 'package:game_template/src/screens/request_access_history.dart';
 import 'package:game_template/src/screens/signin_screen.dart';
 import 'package:game_template/src/screens/singup_screen.dart';
+import 'package:game_template/src/screens/user_histories_screen.dart';
+import 'package:game_template/src/screens/user_history_screen.dart';
 import 'package:game_template/src/screens/welcome_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:logging/logging.dart';
@@ -168,8 +172,31 @@ class MyApp extends StatelessWidget {
                 const SettingsScreen(key: Key('settings')),
           ),
           GoRoute(
+            name: 'history',
             path: 'menu/history',
             builder: (context, state) => HistoryScreen(key: Key('history')),
+          ),
+          GoRoute(
+              name: 'userHistory',
+              path: 'menu/history/userHistory/:email',
+              builder: (context, state) => UserHistoryScreen(
+                  state.params['email']!.toString(),
+                  key: Key('userHistory'))),
+          GoRoute(
+            name: 'userHistories',
+            path: 'menu/history/userHistories',
+            builder: (context, state) =>
+                UserHistoriesScreen(key: Key('userHistories')),
+          ),
+          GoRoute(
+            path: 'menu/history/grantAccessHistory',
+            builder: (context, state) =>
+                GrantAccessHistory(key: Key('grantAccessHistory')),
+          ),
+          GoRoute(
+            path: 'menu/history/requestAccessHistory',
+            builder: (context, state) =>
+                RequestAccessHistory(key: Key('requestAccessHistory')),
           ),
         ],
       )

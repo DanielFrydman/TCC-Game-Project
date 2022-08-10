@@ -2,18 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:game_template/src/shared/cloud_firebase_methods.dart';
+import 'package:game_template/src/shared/history.dart';
 import 'package:game_template/src/shared/reusable_widget.dart';
 import 'package:game_template/src/style/responsive_screen.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-class HistoryScreen extends StatefulWidget {
-  HistoryScreen({Key? key}) : super(key: key);
+class UserHistoriesScreen extends StatefulWidget {
+  UserHistoriesScreen({Key? key}) : super(key: key);
 
   @override
-  State<HistoryScreen> createState() => _HistoryScreenState();
+  State<UserHistoriesScreen> createState() => _UserHistoriesScreenState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _UserHistoriesScreenState extends State<UserHistoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,42 +73,42 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           Map<String, dynamic> data =
                               snapshot.data!.data() as Map<String, dynamic>;
 
+                          List historyAccess = data['historyAccess'];
+
                           context.loaderOverlay.hide();
-                          return ListView(children: [
-                            Column(
-                              children: [
-                                gap(MediaQuery.of(context).size.height / 4),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    if (data['isManager']) ...[
-                                      buttonUserHistory(
-                                          context, 'Seu', data['e-mail']),
-                                      button(context, 'Conceder acesso',
-                                          '/menu/history/grantAccessHistory'),
-                                      button(context, 'Solicitar acesso',
-                                          '/menu/history/requestAccessHistory'),
-                                      button(context, 'Sua equipe',
-                                          '/menu/history/userHistories')
-                                    ] else ...[
-                                      buttonUserHistory(context,
-                                          'Seu histórico', data['e-mail']),
-                                      button(context, 'Conceder acesso',
-                                          '/menu/history/grantAccessHistory'),
-                                    ]
-                                  ],
-                                )
-                              ],
-                            )
-                          ]);
+                          return ListView(
+                            children: [
+                              for (final email in historyAccess)
+                                ListTile(
+                                  onTap: () {
+                                    GoRouter.of(context).goNamed('userHistory',
+                                        params: {'email': '${email}'});
+                                  },
+                                  leading: Text(
+                                      (historyAccess.indexOf(email) + 1)
+                                          .toString(),
+                                      style: GoogleFonts.vt323(
+                                          textStyle: TextStyle(
+                                              fontSize: 30,
+                                              fontWeight: FontWeight.w300))),
+                                  title: Text('${email}',
+                                      style: textStyleWithShadow(context,
+                                          size: 1.5)),
+                                ),
+                            ],
+                          );
                         }
 
                         return Text('');
                       },
                     )),
               ),
-              button(context, 'Voltar', '/menu')
+              ElevatedButton(
+                  onPressed: () => GoRouter.of(context).go('/menu/history'),
+                  child: Text('Voltar'),
+                  style: ElevatedButton.styleFrom(
+                      primary: buttonColor,
+                      textStyle: textStyle(context, size: 2))),
             ],
           ),
         ),
