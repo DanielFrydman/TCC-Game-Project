@@ -38,71 +38,80 @@ class _UserHistoryScreenState extends State<UserHistoryScreen> {
               Text('Histórico',
                   textAlign: TextAlign.center,
                   style: textStyleWithShadow(context)),
-              FutureBuilder<DocumentSnapshot>(
-                future: getUserDocumentSnapshotByEmail(email),
-                builder: (BuildContext context,
-                    AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  context.loaderOverlay.show();
-                  if (snapshot.hasError) {
-                    context.loaderOverlay.hide();
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        text('Algo deu errado, tente novamente mais tarde.',
-                            context)
-                      ],
-                    );
-                  }
+              Expanded(
+                  child: LoaderOverlay(
+                useDefaultLoading: false,
+                overlayWidget: Center(
+                  child: SpinKitThreeBounce(color: buttonColor, size: 50.0),
+                ),
+                overlayOpacity: 0,
+                child: FutureBuilder<DocumentSnapshot>(
+                  future: getUserDocumentSnapshotByEmail(email),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    context.loaderOverlay.show();
+                    if (snapshot.hasError) {
+                      context.loaderOverlay.hide();
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          text('Algo deu errado, tente novamente mais tarde.',
+                              context)
+                        ],
+                      );
+                    }
 
-                  if (snapshot.hasData && !snapshot.data!.exists) {
-                    context.loaderOverlay.hide();
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        text('Você não possui um histórico no banco de dados.',
-                            context)
-                      ],
-                    );
-                  }
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      context.loaderOverlay.hide();
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          text(
+                              'Você não possui um histórico no banco de dados.',
+                              context)
+                        ],
+                      );
+                    }
 
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    Map<String, dynamic> data =
-                        snapshot.data!.data() as Map<String, dynamic>;
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data =
+                          snapshot.data!.data() as Map<String, dynamic>;
 
-                    List historiesJson = [];
-                    data['history'].forEach((history) {
-                      historiesJson.add(historyMapper(history));
-                    });
+                      List historiesJson = [];
+                      data['history'].forEach((history) {
+                        historiesJson.add(historyMapper(history));
+                      });
 
-                    context.loaderOverlay.hide();
-                    return ListView(
-                      children: [
-                        dataTable([
-                          DataColumn(label: Text('Legenda:')),
-                          DataColumn(label: Text('')),
-                          DataColumn(label: Text('')),
-                          DataColumn(label: Text(''))
-                        ], [
-                          DataRow(cells: [
-                            DataCell(Text('✔️ Certo',
-                                style: TextStyle(color: Colors.green))),
-                            DataCell(Text('✖️ Errado',
-                                style: TextStyle(color: Colors.red))),
-                            DataCell(Text('✔️✔️ Bonus',
-                                style: TextStyle(color: Colors.green))),
-                            DataCell(Text('🔄 Restaurou')),
-                          ])
-                        ], dataRowHeight: 50.0),
-                        formDataTable(historiesJson)
-                      ],
-                    );
-                  }
+                      context.loaderOverlay.hide();
+                      return ListView(
+                        children: [
+                          dataTable([
+                            DataColumn(label: Text('Legenda:')),
+                            DataColumn(label: Text('')),
+                            DataColumn(label: Text('')),
+                            DataColumn(label: Text(''))
+                          ], [
+                            DataRow(cells: [
+                              DataCell(Text('✔️ Certo',
+                                  style: TextStyle(color: Colors.green))),
+                              DataCell(Text('✖️ Errado',
+                                  style: TextStyle(color: Colors.red))),
+                              DataCell(Text('✔️✔️ Bonus',
+                                  style: TextStyle(color: Colors.green))),
+                              DataCell(Text('🔄 Restaurou')),
+                            ])
+                          ], dataRowHeight: 50.0),
+                          formDataTable(historiesJson)
+                        ],
+                      );
+                    }
 
-                  return Text('');
-                },
-              ),
+                    return Text('');
+                  },
+                ),
+              )),
               ElevatedButton(
                   onPressed: () {
                     if (FirebaseAuth.instance.currentUser?.email == email) {
