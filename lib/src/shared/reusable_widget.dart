@@ -44,7 +44,7 @@ TextFormField reusableTextField(String text, IconData icon, bool isPasswordType,
           borderRadius: BorderRadius.circular(4.0),
           borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
       errorStyle: GoogleFonts.vt323(
-          textStyle: TextStyle(fontSize: 21.8, fontWeight: FontWeight.w500),
+          textStyle: TextStyle(fontSize: 21.5, fontWeight: FontWeight.w500),
           color: buttonColor,
           shadows: <Shadow>[
             Shadow(color: Colors.white, offset: Offset(0, 0), blurRadius: 20),
