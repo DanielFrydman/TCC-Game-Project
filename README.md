@@ -18,7 +18,7 @@ The game is based on levels, from basic to advanced, and in each level, you will
 # Language used
 Flutter/Dart.
 
-This project was started with Flutter Casual Games Toolkit. 
+This project was started with Flutter Casual Games Toolkit, Tiled and Bonfire.
 
 # Thanks
 #### Hope you all enjoy!! =D =D
