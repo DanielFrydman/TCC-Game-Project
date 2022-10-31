@@ -8,10 +8,7 @@ With this work, we intend to teach Information Security to everyone who is inter
 
 The game is based on levels, from basic to advanced, and in each level, you will find content of some concept and a game at the end to apply what you have learned.
 
-# Contributors to the code
-- Daniel David Frydman - https://github.com/DanielFrydman
-
-# Contributors to the monography
+# Contributors:
 - Daniel David Frydman - https://github.com/DanielFrydman
 - Natan de Miranda Bueno - https://github.com/Natan-Bueno
 
