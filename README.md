@@ -8,7 +8,7 @@ With this work, we intend to teach Information Security to everyone who is inter
 
 The game is based on levels, from basic to advanced, and in each level, you will find content of some concept and a game at the end to apply what you have learned.
 
-# Some videos about the functionality (Every text in the game is in Portuguese, sorry :( )
+# Some videos about the functionality (All the text in the game is in Portuguese, sorry about that)
 [Playing the game a little bit](https://www.youtube.com/watch?v=1XAP7Ei1F80)
 <br>
 [How the player(employee) history will appear to the manager](https://www.youtube.com/watch?v=uNBTD7W4UY4)
