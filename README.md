@@ -10,8 +10,11 @@ The game is based on levels, from basic to advanced, and in each level, you will
 
 # Some videos about the functionality (Every text in the game is in Portuguese, sorry :()
 [Playing the game a little bit](https://www.youtube.com/watch?v=1XAP7Ei1F80)
+<br>
 [How the player(employee) history will appear to the manager](https://www.youtube.com/watch?v=uNBTD7W4UY4)
+<br>
 [Manager - Asking asking permission to view the employee history](https://www.youtube.com/watch?v=l9YC0tarEOA)
+<br>
 [Employee - Giving access from your history to your manager - pop up](https://www.youtube.com/watch?v=BmZfhLZiByM)
 
 # Contributors:
